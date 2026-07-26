@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+
+{% block title %}Profil Saya{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-lg-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <img src="https://ui-avatars.com/api/?name={{ request.user.username }}&background=0D6EFD&color=ffffff&size=200"
+                         class="rounded-circle mb-3"
+                         width="150"
+                         height="150">
+
+                    <h3>
+
+                        {% if request.user.first_name %}
+
+                            {{ request.user.first_name }} {{ request.user.last_name }}
+
+                        {% else %}
+
+                            {{ request.user.username }}
+
+                        {% endif %}
+
+                    </h3>
+
+                    <p class="text-muted">
+
+                        {{ request.user.email }}
+
+                    </p>
+
+                    <span class="badge bg-primary">
+
+                        {{ request.user.role|title }}
+
+                    </span>
+
+                    <hr>
+
+                    <a href="{% url 'edit_profile' %}" class="btn btn-primary w-100 mb-2">
+
+                        <i class="fas fa-user-edit"></i>
+                        Edit Profil
+
+                    </a>
+
+                    <a href="{% url 'pelanggan_dashboard' %}" class="btn btn-secondary w-100">
+
+                        <i class="fas fa-arrow-left"></i>
+                        Kembali ke Dashboard
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0">
+
+                        Data Profil
+
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-striped">
+
+                        <tr>
+
+                            <th width="35%">
+
+                                Username
+
+                            </th>
+
+                            <td>
+
+                                {{ request.user.username }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+
+                                Nama Depan
+
+                            </th>
+
+                            <td>
+
+                                {{ request.user.first_name|default:"-" }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+
+                                Nama Belakang
+
+                            </th>
+
+                            <td>
+
+                                {{ request.user.last_name|default:"-" }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+
+                                Email
+
+                            </th>
+
+                            <td>
+
+                                {{ request.user.email }}
+
+                            </td>
+
+                        </tr>
+                                                <tr>
+
+                            <th>
+
+                                Role
+
+                            </th>
+
+                            <td>
+
+                                <span class="badge bg-success">
+
+                                    {{ request.user.role|title }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+
+                                Status Akun
+
+                            </th>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Aktif
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+
+                                Bergabung Sejak
+
+                            </th>
+
+                            <td>
+
+                                {{ request.user.date_joined|date:"d F Y" }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+
+                                Login Terakhir
+
+                            </th>
+
+                            <td>
+
+                                {{ request.user.last_login|date:"d F Y H:i" }}
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow border-0 mt-4">
+
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+
+                        Informasi Akun
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <div class="border rounded p-3">
+
+                                <h6>
+
+                                    <i class="fas fa-user"></i>
+
+                                    Username
+
+                                </h6>
+
+                                <p class="mb-0">
+
+                                    {{ request.user.username }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <div class="border rounded p-3">
+
+                                <h6>
+
+                                    <i class="fas fa-envelope"></i>
+
+                                    Email
+
+                                </h6>
+
+                                <p class="mb-0">
+
+                                    {{ request.user.email }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <div class="border rounded p-3">
+
+                                <h6>
+
+                                    <i class="fas fa-id-badge"></i>
+
+                                    Role
+
+                                </h6>
+
+                                <p class="mb-0">
+
+                                    {{ request.user.role|title }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <div class="border rounded p-3">
+
+                                <h6>
+
+                                    <i class="fas fa-check-circle"></i>
+
+                                    Status
+
+                                </h6>
+
+                                <p class="mb-0 text-success">
+
+                                    Aktif
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

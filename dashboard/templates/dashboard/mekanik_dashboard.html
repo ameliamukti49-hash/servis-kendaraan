@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Mekanik</title>
+</head>
+<body>
+
+<h1>Dashboard Mekanik</h1>
+
+<p>Selamat datang {{ request.user.first_name }}</p>
+
+<a href="{% url 'logout' %}">
+    Logout
+</a>
+
+</body>
+</html>
