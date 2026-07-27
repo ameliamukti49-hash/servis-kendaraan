@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Pekerjaan Mekanik</title>
+</head>
+<body>
+
+<h2>Daftar Pekerjaan Mekanik</h2>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>No</th>
+        <th>No Polisi</th>
+        <th>Mekanik</th>
+        <th>Status</th>
+        <th>Aksi</th>
+    </tr>
+
+    {% for wo in workorders %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ wo.booking.kendaraan.nomor_polisi }}</td>
+        <td>{{ wo.mekanik.nama }}</td>
+        <td>{{ wo.get_status_display }}</td>
+        <td>
+            <a href="{% url 'mekanik:detail_servis' wo.id %}">
+                Detail Servis
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5" align="center">
+            Belum ada pekerjaan.
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br>
+
+<a href="{% url 'mekanik:dashboard' %}">
+    ← Kembali ke Dashboard
+</a>
+
+</body>
+</html>
