@@ -12,4 +12,7 @@ urlpatterns = [
 
     # Booking & Kendaraan
     path('', include('booking.urls')),
+
+    # Mekanik
+    path('mekanik/', include('mekanik.urls')),
 ]
