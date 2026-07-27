@@ -138,6 +138,8 @@ def booking_list(request):
             "booking": booking
         }
     )
+
+
 @login_required
 def booking_create(request):
 

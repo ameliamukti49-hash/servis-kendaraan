@@ -93,3 +93,26 @@ class BookingServisForm(forms.ModelForm):
             }),
 
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        tanggal = cleaned_data.get('tanggal_booking')
+        jam = cleaned_data.get('jam_booking')
+
+        if tanggal and jam:
+
+            booking = BookingServis.objects.filter(
+                tanggal_booking=tanggal,
+                jam_booking=jam
+            )
+
+            if self.instance.pk:
+                booking = booking.exclude(pk=self.instance.pk)
+
+            if booking.exists():
+                raise forms.ValidationError(
+                    "Jadwal pada tanggal dan jam tersebut sudah dibooking."
+                )
+
+        return cleaned_data

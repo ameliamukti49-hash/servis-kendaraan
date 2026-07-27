@@ -12,5 +12,4 @@ urlpatterns = [
 
     # Booking & Kendaraan
     path('', include('booking.urls')),
-
 ]

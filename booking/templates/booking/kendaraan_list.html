@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Data Kendaraan</h2>
+
+        <a href="{% url 'kendaraan_create' %}" class="btn btn-primary">
+            + Tambah Kendaraan
+        </a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>No</th>
+                <th>Jenis</th>
+                <th>Merk</th>
+                <th>Tipe</th>
+                <th>Tahun</th>
+                <th>Nomor Polisi</th>
+                <th>Warna</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for item in kendaraan %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.jenis }}</td>
+                <td>{{ item.merk }}</td>
+                <td>{{ item.tipe }}</td>
+                <td>{{ item.tahun }}</td>
+                <td>{{ item.nomor_polisi }}</td>
+                <td>{{ item.warna }}</td>
+
+                <td>
+
+                    <a href="{% url 'kendaraan_update' item.id %}" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a href="{% url 'kendaraan_delete' item.id %}" class="btn btn-danger btn-sm">
+                        Hapus
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="8" class="text-center">
+                    Belum ada data kendaraan.
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

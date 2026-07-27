@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-header bg-primary text-white">
+            <h4>Detail Booking Servis</h4>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th width="30%">Kendaraan</th>
+                    <td>{{ booking.kendaraan.nomor_polisi }}</td>
+                </tr>
+
+                <tr>
+                    <th>Merk</th>
+                    <td>{{ booking.kendaraan.merk }}</td>
+                </tr>
+
+                <tr>
+                    <th>Tipe</th>
+                    <td>{{ booking.kendaraan.tipe }}</td>
+                </tr>
+
+                <tr>
+                    <th>Tanggal Booking</th>
+                    <td>{{ booking.tanggal_booking }}</td>
+                </tr>
+
+                <tr>
+                    <th>Jam Booking</th>
+                    <td>{{ booking.jam_booking }}</td>
+                </tr>
+
+                <tr>
+                    <th>Keluhan</th>
+                    <td>{{ booking.keluhan }}</td>
+                </tr>
+
+                <tr>
+                    <th>Status</th>
+                    <td>{{ booking.get_status_display }}</td>
+                </tr>
+
+                <tr>
+                    <th>Estimasi Selesai</th>
+                    <td>{{ booking.estimasi_selesai|default:"-" }}</td>
+                </tr>
+
+                <tr>
+                    <th>Catatan Admin</th>
+                    <td>{{ booking.catatan_admin|default:"-" }}</td>
+                </tr>
+
+            </table>
+
+            <a href="{% url 'booking_list' %}" class="btn btn-secondary">
+                Kembali
+            </a>
+
+            <a href="{% url 'booking_update' booking.id %}" class="btn btn-warning">
+                Edit
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

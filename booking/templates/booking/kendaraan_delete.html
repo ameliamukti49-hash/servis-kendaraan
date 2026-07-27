@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-header bg-danger text-white">
+            <h4>Hapus Kendaraan</h4>
+        </div>
+
+        <div class="card-body">
+
+            <p>Apakah Anda yakin ingin menghapus kendaraan berikut?</p>
+
+            <table class="table">
+                <tr>
+                    <th>Nomor Polisi</th>
+                    <td>{{ kendaraan.nomor_polisi }}</td>
+                </tr>
+
+                <tr>
+                    <th>Merk</th>
+                    <td>{{ kendaraan.merk }}</td>
+                </tr>
+
+                <tr>
+                    <th>Tipe</th>
+                    <td>{{ kendaraan.tipe }}</td>
+                </tr>
+            </table>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-danger">
+                    Ya, Hapus
+                </button>
+
+                <a href="{% url 'kendaraan_list' %}" class="btn btn-secondary">
+                    Batal
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
