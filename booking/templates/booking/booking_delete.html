@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-header bg-danger text-white">
+            <h4>Hapus Booking Servis</h4>
+        </div>
+
+        <div class="card-body">
+
+            <p>Apakah Anda yakin ingin menghapus booking servis berikut?</p>
+
+            <table class="table">
+
+                <tr>
+                    <th>Kendaraan</th>
+                    <td>{{ booking.kendaraan.nomor_polisi }}</td>
+                </tr>
+
+                <tr>
+                    <th>Tanggal Booking</th>
+                    <td>{{ booking.tanggal_booking }}</td>
+                </tr>
+
+                <tr>
+                    <th>Jam Booking</th>
+                    <td>{{ booking.jam_booking }}</td>
+                </tr>
+
+                <tr>
+                    <th>Status</th>
+                    <td>{{ booking.get_status_display }}</td>
+                </tr>
+
+            </table>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-danger">
+                    Ya, Hapus
+                </button>
+
+                <a href="{% url 'booking_list' %}" class="btn btn-secondary">
+                    Batal
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
