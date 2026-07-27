@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Mekanik, WorkOrder
 
-# Register your models here.
+admin.site.register(Mekanik)
+admin.site.register(WorkOrder)
