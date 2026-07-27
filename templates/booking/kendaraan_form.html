@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ judul }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0">
+                        {{ judul }}
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Jenis Kendaraan
+
+                            </label>
+
+                            {{ form.jenis }}
+
+                            {% if form.jenis.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ form.jenis.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Merk
+
+                            </label>
+
+                            {{ form.merk }}
+
+                            {% if form.merk.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ form.merk.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Tipe
+
+                            </label>
+
+                            {{ form.tipe }}
+
+                            {% if form.tipe.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ form.tipe.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Tahun
+
+                            </label>
+
+                            {{ form.tahun }}
+
+                            {% if form.tahun.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ form.tahun.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Nomor Polisi
+
+                            </label>
+
+                            {{ form.nomor_polisi }}
+
+                            {% if form.nomor_polisi.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ form.nomor_polisi.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+                                                <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Warna
+
+                            </label>
+
+                            {{ form.warna }}
+
+                            {% if form.warna.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ form.warna.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Nomor Rangka
+
+                            </label>
+
+                            {{ form.nomor_rangka }}
+
+                            {% if form.nomor_rangka.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ form.nomor_rangka.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Nomor Mesin
+
+                            </label>
+
+                            {{ form.nomor_mesin }}
+
+                            {% if form.nomor_mesin.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ form.nomor_mesin.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a href="{% url 'kendaraan_list' %}"
+                               class="btn btn-secondary">
+
+                                Kembali
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                Simpan
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

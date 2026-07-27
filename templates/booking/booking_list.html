@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking Servis{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold text-primary">
+
+                Booking Servis
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Daftar booking servis kendaraan.
+
+            </p>
+
+        </div>
+
+        <a href="{% url 'booking_create' %}"
+           class="btn btn-primary">
+
+            + Booking Servis
+
+        </a>
+
+    </div>
+
+    {% if booking %}
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover align-middle mb-0">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>No</th>
+
+                            <th>Kendaraan</th>
+
+                            <th>Tanggal</th>
+
+                            <th>Jam</th>
+
+                            <th>Status</th>
+
+                            <th width="240">Aksi</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for item in booking %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ forloop.counter }}
+
+                            </td>
+
+                            <td>
+
+                                {{ item.kendaraan.merk }}
+                                {{ item.kendaraan.tipe }}
+
+                                <br>
+
+                                <small class="text-muted">
+
+                                    {{ item.kendaraan.nomor_polisi }}
+
+                                </small>
+
+                            </td>
+
+                            <td>
+
+                                {{ item.tanggal_booking }}
+
+                            </td>
+
+                            <td>
+
+                                {{ item.jam_booking }}
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge bg-info">
+
+                                    {{ item.get_status_display }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                                                <a href="{% url 'booking_detail' item.id %}"
+                                   class="btn btn-info btn-sm text-white">
+
+                                    Detail
+
+                                </a>
+
+                                <a href="{% url 'booking_update' item.id %}"
+                                   class="btn btn-warning btn-sm">
+
+                                    Edit
+
+                                </a>
+
+                                <a href="{% url 'booking_delete' item.id %}"
+                                   class="btn btn-danger btn-sm">
+
+                                    Hapus
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="card shadow-sm">
+
+        <div class="card-body text-center py-5">
+
+            <h4 class="text-muted">
+
+                Belum ada data booking servis.
+
+            </h4>
+
+            <p class="text-muted">
+
+                Silakan lakukan booking servis terlebih dahulu.
+
+            </p>
+
+            <a href="{% url 'booking_create' %}"
+               class="btn btn-primary">
+
+                Booking Servis
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

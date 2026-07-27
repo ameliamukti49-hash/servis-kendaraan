@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Detail Booking Servis
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0">
+
+                        Detail Booking Servis
+
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered">
+
+                        <tr>
+                            <th width="35%">Merk Kendaraan</th>
+                            <td>{{ booking.kendaraan.merk }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Tipe Kendaraan</th>
+                            <td>{{ booking.kendaraan.tipe }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Nomor Polisi</th>
+                            <td>{{ booking.kendaraan.nomor_polisi }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Jenis Kendaraan</th>
+                            <td>{{ booking.kendaraan.jenis }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Tanggal Booking</th>
+                            <td>{{ booking.tanggal_booking }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Jam Booking</th>
+                            <td>{{ booking.jam_booking }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Status</th>
+                            <td>
+
+                                <span class="badge bg-success">
+
+                                    {{ booking.get_status_display }}
+
+                                </span>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Keluhan Kendaraan</th>
+                            <td>
+
+                                {{ booking.keluhan }}
+
+                            </td>
+                        </tr>
+
+                        {% if booking.estimasi_selesai %}
+                        <tr>
+                            <th>Estimasi Selesai</th>
+                            <td>{{ booking.estimasi_selesai }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if booking.catatan_admin %}
+                        <tr>
+                            <th>Catatan Admin</th>
+                            <td>{{ booking.catatan_admin }}</td>
+                        </tr>
+                        {% endif %}
+
+                    </table>
+
+                    <div class="d-flex justify-content-between mt-4">
+
+                        <a href="{% url 'booking_list' %}"
+                           class="btn btn-secondary">
+
+                            Kembali
+
+                        </a>
+
+                        <div>
+
+                            <a href="{% url 'booking_update' booking.id %}"
+                               class="btn btn-warning">
+
+                                Edit
+
+                            </a>
+
+                            <a href="{% url 'booking_delete' booking.id %}"
+                               class="btn btn-danger">
+
+                                Hapus
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
