@@ -1,30 +1,154 @@
-# dashboard/forms.py
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
 from .models import UserProfile
 
+
+User = get_user_model()
+
+
+
 class UserMasterForm(forms.ModelForm):
-    """ Form Utama untuk Create & Update User bawaan Django """
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control-modern'}), required=False)
-    
+    """
+    Form untuk membuat dan edit user utama
+    """
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Password'
+            }
+        ),
+        required=False
+    )
+
+
     class Meta:
+
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'is_active']
+
+        fields = [
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'role',
+            'is_active'
+        ]
+
+
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control-modern', 'placeholder': 'Username unik'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control-modern', 'placeholder': 'email@bengkelku.com'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control-modern', 'placeholder': 'Nama Depan'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control-modern', 'placeholder': 'Nama Belakang'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input ms-2', 'role': 'switch'}),
+
+            'username': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Username'
+                }
+            ),
+
+
+            'email': forms.EmailInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Email'
+                }
+            ),
+
+
+            'first_name': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Nama Depan'
+                }
+            ),
+
+
+            'last_name': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Nama Belakang'
+                }
+            ),
+
+
+            'role': forms.Select(
+                attrs={
+                    'class':'form-select'
+                }
+            ),
+
+
+            'is_active': forms.CheckboxInput(
+                attrs={
+                    'class':'form-check-input'
+                }
+            )
+
         }
 
+
+
+    def save(self, commit=True):
+
+        user = super().save(commit=False)
+
+
+        password = self.cleaned_data.get(
+            'password'
+        )
+
+
+        if password:
+
+            user.set_password(password)
+
+
+        if commit:
+
+            user.save()
+
+
+        return user
+
+
+
+
+
+
+
 class UserProfileForm(forms.ModelForm):
-    """ Form Ekstensi untuk Role dan Foto Profil """
+    """
+    Form tambahan profil user
+    """
+
+
     class Meta:
+
         model = UserProfile
-        fields = ['role', 'no_telepon', 'foto']
+
+
+        fields = [
+            'no_telepon',
+            'foto'
+        ]
+
+
         widgets = {
-            'role': forms.Select(attrs={'class': 'form-select form-control-modern'}),
-            'no_telepon': forms.TextInput(attrs={'class': 'form-control-modern', 'placeholder': '08123456789'}),
-            'foto': forms.FileInput(attrs={'class': 'form-control form-control-modern'}),
+
+
+            'no_telepon': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'08123456789'
+                }
+            ),
+
+
+            'foto': forms.FileInput(
+                attrs={
+                    'class':'form-control'
+                }
+            )
+
         }
