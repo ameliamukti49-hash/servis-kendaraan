@@ -1,0 +1,13 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('sparepart/', views.daftar_sparepart, name='daftar_sparepart'),
+    path('sparepart/tambah/', views.tambah_sparepart, name='tambah_sparepart'),
+    path('sparepart/edit/<int:pk>/', views.edit_sparepart, name='edit_sparepart'),
+    path('sparepart/hapus/<int:pk>/', views.hapus_sparepart, name='hapus_sparepart'),
+    path('jasa/', views.daftar_jasa, name='daftar_jasa'),
+    path('jasa/tambah/', views.tambah_jasa, name='tambah_jasa'),
+    path('jasa/edit/<int:pk>/', views.edit_jasa, name='edit_jasa'),
+    path('jasa/hapus/<int:pk>/', views.hapus_jasa, name='hapus_jasa'),
+]

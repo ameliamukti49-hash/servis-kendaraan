@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Sparepart</title>
+</head>
+<body>
+
+<h2>Form Sparepart</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Simpan</button>
+</form>
+
+<br>
+
+<a href="{% url 'daftar_sparepart' %}">
+    Kembali
+</a>
+
+</body>
+</html>

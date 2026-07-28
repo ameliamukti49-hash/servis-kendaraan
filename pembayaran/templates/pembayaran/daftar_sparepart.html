@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Sparepart</title>
+</head>
+<body>
+
+<h2>Daftar Sparepart</h2>
+
+<a href="{% url 'tambah_sparepart' %}">+ Tambah Sparepart</a>
+
+<br><br>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Harga</th>
+        <th>Stok</th>
+        <th>Aksi</th>
+    </tr>
+
+    {% for sparepart in spareparts %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ sparepart.nama }}</td>
+        <td>{{ sparepart.harga }}</td>
+        <td>{{ sparepart.stok }}</td>
+        <td>
+            <a href="{% url 'edit_sparepart' sparepart.id %}">Edit</a>
+            |
+            <a href="{% url 'hapus_sparepart' sparepart.id %}">Hapus</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">Belum ada data.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
