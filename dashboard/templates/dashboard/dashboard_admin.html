@@ -1,0 +1,127 @@
+{% load static %}
+<!-- dashboard/templates/dashboard/dashboard_admin.html -->
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - BengkelKu SaaS</title>
+    <!-- Core UI Standard Requirements -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <!-- ==================== SIDEBAR MODERN (COLLAPSIBLE & INTERACTIVE) ==================== -->
+    <aside class="sidebar-container" aria-label="Navigasi Utama">
+        <div class="d-flex align-items-center justify-content-between p-4 border-bottom border-secondary border-opacity-10">
+            <div class="sidebar-brand d-flex align-items-center text-white fw-bold fs-5">
+                <i class="bi bi-wrench-adjustable text-primary me-2"></i>
+                <span class="brand-text">BengkelKu</span>
+            </div>
+            <button id="sidebarToggle" class="btn btn-sm btn-dark d-none d-md-inline-block" aria-label="Perkecil Menu">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+        </div>
+        
+        <ul class="nav flex-column p-3 gap-1">
+            <li class="nav-item">
+                <a href="#" class="nav-link text-white bg-primary bg-opacity-10 rounded-3 px-3 py-2.5 d-flex align-items-center gap-3">
+                    <i class="bi bi-grid-1x2-fill"></i><span class="brand-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'dashboard:user_list' %}" class="nav-link text-white-50 rounded-3 px-3 py-2.5 d-flex align-items-center gap-3">
+                    <i class="bi bi-people"></i><span class="brand-text">Manajemen Karyawan</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- ==================== MAIN VIEWPORT INTERFACE ==================== -->
+    <div class="main-layout-viewport">
+        <!-- STICKY NAVBAR GLASSMORPHISM -->
+        <nav class="navbar navbar-glass d-flex align-items-center justify-content-between">
+            <h5 class="fw-bold mb-0 tracking-tight">{{ page_title|default:"Overview Eksekutif" }}</h5>
+            
+            <div class="d-flex align-items-center gap-3">
+                <button id="themeToggle" class="btn btn-light rounded-circle p-2" aria-label="Ubah Tema Tampilan">
+                    <i class="bi bi-moon-stars"></i>
+                </button>
+                
+                <div class="user-profile-dropdown">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-semibold" style="width: 36px; height: 36px;">
+                            US
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- CONTAINER KONTEN UTAMA -->
+        <main class="p-4 container-fluid flex-grow-1 animate__animated animate__fadeIn">
+            <!-- 4 CORE ANIMATED FLOATING CARDS -->
+            <div class="row g-4 mb-4">
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="saas-card floating">
+                        <span class="text-muted d-block small mb-1">Booking Hari Ini</span>
+                        <h3 class="fw-bold saas-counter mb-0" data-target="{{ booking_hari_ini|default:18 }}">0</h3>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="saas-card floating">
+                        <span class="text-muted d-block small mb-1">Servis Selesai</span>
+                        <h3 class="fw-bold text-success saas-counter mb-0" data-target="{{ servis_hari_ini|default:24 }}">0</h3>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="saas-card floating">
+                        <span class="text-muted d-block small mb-1">Total Omset Operasional</span>
+                        <h3 class="fw-bold text-primary saas-counter mb-0" data-target="{{ pendapatan|default:4850000 }}">0</h3>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="saas-card floating">
+                        <span class="text-muted d-block small mb-1">Total Pelanggan Terdaftar</span>
+                        <h3 class="fw-bold saas-counter mb-0" data-target="{{ total_pelanggan|default:1420 }}">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTERACTIVE CHART SECTION -->
+            <div class="row g-4 mb-4">
+                <div class="col-12 col-lg-8">
+                    <div class="saas-card">
+                        <h6 class="fw-bold mb-3">Metrik Aktivitas Real-time</h6>
+                        <div style="height: 260px;"><canvas id="saasChartPerformance"></canvas></div>
+                    </div>
+                </div>
+                
+                <!-- EMPTY STATE ILLUSTRATION CONTAINER -->
+                <div class="col-12 col-lg-4">
+                    <div class="saas-card d-flex align-items-center justify-content-center h-100">
+                        <div class="saas-empty-state">
+                            <i class="bi bi-folder-x text-muted fs-1 d-block mb-2"></i>
+                            <h6 class="fw-bold">Tidak Ada Antrean Urgent</h6>
+                            <p class="text-muted small">Seluruh unit kendaraan sedang ditangani dengan optimal oleh mekanik.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Frontend Engines Deployment -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/app-layout.js' %}"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
