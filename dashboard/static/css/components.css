@@ -1,0 +1,87 @@
+/* dashboard/static/css/components.css */
+
+/* --- Premium Floating Card & Glassmorphism --- */
+.saas-card {
+    background: var(--bengkelku-surface);
+    border: 1px solid var(--bengkelku-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.saas-card.floating:hover {
+    transform: translateY(-5px);
+    border-color: var(--bengkelku-border-hover);
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-glass {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: var(--bengkelku-surface-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--bengkelku-border);
+    padding: 0.85rem 2rem;
+    transition: var(--transition-smooth);
+}
+
+/* --- Ripple Button Effect --- */
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+    background: var(--gradient-primary);
+    color: var(--text-inverse);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.65rem 1.25rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-ripple:hover {
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    opacity: 0.95;
+}
+
+/* --- Skeleton Loading Pattern --- */
+.saas-skeleton {
+    animation: saas-shimmer 1.6s infinite linear;
+    background: linear-gradient(90deg, var(--bengkelku-border) 25%, var(--bengkelku-bg) 50%, var(--bengkelku-border) 75%);
+    background-size: 200% 100%;
+    border-radius: var(--radius-md);
+    color: transparent !important;
+    pointer-events: none;
+}
+
+@keyframes saas-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* --- Empty State SaaS Style --- */
+.saas-empty-state {
+    text-align: center;
+    padding: 3rem 1.5rem;
+}
+
+.saas-empty-illustration {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 1.5rem;
+    opacity: 0.75;
+}
+
+/* --- Accessibility Focus Indicators (WCAG) --- */
+.btn-ripple:focus-visible, 
+.form-control-saas:focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 2px;
+}

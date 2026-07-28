@@ -15,4 +15,7 @@ urlpatterns = [
 
     # Mekanik
     path('mekanik/', include('mekanik.urls')),
+
+    # Pembayaran
+    path('pembayaran/', include('pembayaran.urls')),
 ]

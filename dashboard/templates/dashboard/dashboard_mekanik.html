@@ -1,0 +1,8 @@
+<!-- dashboard/templates/dashboard/dashboard_mekanik.html -->
+{% include "dashboard/dashboard_admin.html" %}
+<!-- Override untuk menampilkan lembar kerja checklist mekanik -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector('.sidebar-brand span').innerText = "BengkelKu - Mekanik";
+    });
+</script>

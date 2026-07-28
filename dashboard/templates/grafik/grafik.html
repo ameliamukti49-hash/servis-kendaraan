@@ -1,0 +1,139 @@
+<!-- dashboard/templates/grafik/grafik.html -->
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - BengkelKu</title>
+    <!-- Core UI Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/grafik.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- SIDEBAR REUSABLE (GRADIENT BLUE) -->
+    <aside class="sidebar-modern">
+        <div class="sidebar-brand d-flex align-items-center mb-4">
+            <i class="bi bi-wrench-adjustable-circle-fill me-2 fs-3"></i>
+            <span>BengkelKu</span>
+        </div>
+        <ul class="sidebar-menu flex-grow-1">
+            <li><a href="{% url 'dashboard:index' %}" class="sidebar-link"><i class="bi bi-grid-1x2-fill"></i>Dashboard</a></li>
+            <li><a href="#" class="sidebar-link"><i class="bi bi-calendar-range"></i>Booking Antrean</a></li>
+            <li><a href="#" class="sidebar-link"><i class="bi bi-tools"></i>Work Orders</a></li>
+            <li><a href="{% url 'dashboard:grafik_statistik' %}" class="sidebar-link active"><i class="bi bi-bar-chart-line-fill"></i>Statistik & Analisis</a></li>
+            <li><a href="{% url 'dashboard:user_list' %}" class="sidebar-link"><i class="bi bi-people"></i>Manajemen User</a></li>
+        </ul>
+    </aside>
+
+    <div class="main-content">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-glass sticky-top d-flex align-items-center justify-content-between px-4">
+            <h5 class="fw-bold mb-0 text-slate-900"><i class="bi bi-graph-up-arrow text-primary me-2"></i>Pusat Analisis Data & Statistik</h5>
+            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2 rounded-pill small">Live Data</span>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="p-4 flex-grow-1 animate-fade-in">
+            
+            <!-- FILTER PANEL CARD -->
+            <div class="premium-card mb-4 border-0 shadow-sm">
+                <h6 class="fw-bold mb-3"><i class="bi bi-funnel-fill text-primary me-2"></i>Filter Kontrol Data Analisis</h6>
+                <form method="GET" class="row g-3 align-items-end">
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <label class="form-label text-xs fw-semibold text-muted">Filter Tahun</label>
+                        <select name="tahun" class="form-select form-control-modern">
+                            <option value="">Semua Tahun</option>
+                            {% for t in tahun_list %}
+                                <option value="{{ t }}">{{ t }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <label class="form-label text-xs fw-semibold text-muted">Filter Bulan</label>
+                        <select name="bulan" class="form-select form-control-modern">
+                            <option value="">Semua Bulan</option>
+                            {% for b in bulan_list %}
+                                <option value="{{ b.num }}">{{ b.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <label class="form-label text-xs fw-semibold text-muted">Rentang Tanggal Khusus</label>
+                        <div class="input-group">
+                            <input type="date" name="start_date" class="form-control form-control-modern" style="border-radius: 12px 0 0 12px;">
+                            <span class="input-group-text bg-light border-start-0 border-end-0 text-muted" style="border-color: var(--border-color);">s/d</span>
+                            <input type="date" name="end_date" class="form-control form-control-modern" style="border-radius: 0 12px 12px 0;">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2 d-grid">
+                        <button type="submit" class="btn btn-gradient-blue py-2.5">
+                            <i class="bi bi-sliders me-2"></i>Terapkan
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- CHART MASTER GRID SYSTEM -->
+            <div class="row g-4">
+                <!-- 1. Booking Bulanan -->
+                <div class="col-12 col-xl-8">
+                    <div class="premium-card chart-card">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-calendar3 text-primary me-2"></i>Tren Volume Booking Bulanan</h6>
+                        <div class="chart-wrapper"><canvas id="chartBookingBulanan"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- 2. Status Booking -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="premium-card chart-card">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-pie-chart text-primary me-2"></i>Rasio Status Booking</h6>
+                        <div class="chart-wrapper"><canvas id="chartStatusBooking"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- 3. Tren Pendapatan -->
+                <div class="col-12 col-xl-8">
+                    <div class="premium-card chart-card">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-cash-coin text-primary me-2"></i>Pertumbuhan Pendapatan Operasional (Rupiah)</h6>
+                        <div class="chart-wrapper"><canvas id="chartPendapatan"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- 4. Jenis Servis -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="premium-card chart-card">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-activity text-primary me-2"></i>Kategori Jenis Servis Populer</h6>
+                        <div class="chart-wrapper"><canvas id="chartJenisServis"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- 5. Top Mekanik -->
+                <div class="col-12 col-lg-6">
+                    <div class="premium-card chart-card">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-person-workspace text-primary me-2"></i>Top 5 Mekanik Terproduktif (Unit Kerja Selesai)</h6>
+                        <div class="chart-wrapper"><canvas id="chartTopMekanik"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- 6. Top Sparepart -->
+                <div class="col-12 col-lg-6">
+                    <div class="premium-card chart-card">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-box-seam text-primary me-2"></i>Top 5 Sparepart Paling Banyak Digunakan</h6>
+                        <div class="chart-wrapper"><canvas id="chartTopSparepart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- JS Requirement Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/js/grafik.js"></script>
+</body>
+</html>
