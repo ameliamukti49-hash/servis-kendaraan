@@ -3,22 +3,32 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import user_passes_test
+from django.utils import timezone
+from django.contrib import messages
+from django.apps import apps
 
-# Import aman: Jika app/model teman belum ada, sistem tidak akan crash
-try:
-    from booking.models import BookingServis
-except ImportError:
-    BookingServis = None
+# =====================================================================
+# IMPORT MODEL SECARA DINAMIS (Anti-Crash & Aman dari Merge)
+# =====================================================================
+# Logika ini akan mendeteksi: Jika app teman sudah di-merge, pakai model mereka.
+# Jika belum, sistem otomatis beralih menggunakan model cadangan di dashboard.models.
 
-try:
-    from mekanik.models import WorkOrder
-except ImportError:
-    WorkOrder = None
+if apps.is_installed('booking'):
+    from booking.models import BookingServis, Kendaraan
+else:
+    from dashboard.models import BookingServis, Kendaraan
 
-try:
+if apps.is_installed('mekanik'):
+    from mekanik.models import WorkOrder, Mekanik
+else:
+    from dashboard.models import WorkOrder, Mekanik
+
+if apps.is_installed('pembayaran'):
     from pembayaran.models import Pembayaran
-except ImportError:
-    Pembayaran = None
+else:
+    from dashboard.models import Pembayaran
 
 
 # Helper untuk memastikan hanya admin/staff yang bisa akses
