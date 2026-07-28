@@ -1,18 +1,25 @@
-# dashboard/urls.py
 from django.urls import path
-from .views import DashboardRoutingView, user_list_view, user_create_view, user_delete_view[cite: 1]
+from . import views
 
 app_name = 'dashboard'
 
 urlpatterns = [
-    # Gateway tunggal untuk mendistribusikan view secara dinamis berdasarkan role user[cite: 1]
-    path('', DashboardRoutingView.as_view(), name='index'),[cite: 1]
+    # Dashboard Utama & Grafik
+    path('', views.dashboard_home, name='home'),
     
-    # Rute Baru: Manajemen User Modul Terintegrasi
-    path('users/', user_list_view, name='user_list'),
-    path('users/create/', user_create_view, name='user_create'),
-    path('users/delete/<int:user_id>/', user_delete_view, name='user_delete'),
-    path('grafik/', views.grafik_view, name='grafik_statistik'),
-    path('laporan/', views.laporan_view, name='laporan_terpadu'),
-    path('invoice/<str:invoice_id>/pdf/', views.export_invoice_pdf, name='export_invoice_pdf'),
+    # Manajemen User (CRUD)
+    path('users/', views.user_list, name='user_list'),
+    path('users/add/', views.user_create, name='user_create'),
+    path('users/edit/', views.user_update, name='user_update'),
+    path('users/delete/<int:pk>/', views.user_delete, name='user_delete'),
+    
+    # Laporan
+    path('laporan/booking/', views.laporan_booking, name='laporan_booking'),
+    path('laporan/servis/', views.laporan_servis, name='laporan_servis'),
+    path('laporan/pembayaran/', views.laporan_pembayaran, name='laporan_pembayaran'),
+    
+    # Trigger Cetak PDF
+    path('laporan/booking/pdf/', views.cetak_booking_pdf, name='cetak_booking_pdf'),
+    path('laporan/servis/pdf/', views.cetak_servis_pdf, name='cetak_servis_pdf'),
+    path('laporan/pembayaran/pdf/', views.cetak_pembayaran_pdf, name='cetak_pembayaran_pdf'),
 ]

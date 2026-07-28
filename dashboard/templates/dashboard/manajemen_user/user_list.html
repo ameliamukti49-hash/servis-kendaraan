@@ -1,0 +1,85 @@
+{% extends 'dashboard/base_admin.html' %}
+
+{% block title %}Manajemen User | Admin{% endblock %}
+{% block page_title %}Manajemen Pengguna (User Management){% endblock %}
+
+{% block content %}
+<!-- Menampilkan Pesan Notifikasi Sukses/Gagal -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="text-muted">
+        Mengelola hak akses, akun pelanggan, dan staff mekanik.
+    </div>
+    <a href="{% url 'dashboard:user_create' %}" class="btn btn-primary shadow-sm">
+        <i class="fa-solid fa-user-plus me-1"></i> Tambah User Baru
+    </a>
+</div>
+
+<div class="card shadow-sm mb-5" style="border-radius: 12px; overflow: hidden;">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-center" style="width: 8%;">No</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role / Status</th>
+                    <th>Log Login Terakhir</th>
+                    <th class="text-center" style="width: 15%;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td class="text-center font-monospace text-muted">{{ forloop.counter }}</td>
+                    <td>
+                        <div class="fw-bold text-dark"><i class="fa-solid fa-user me-2 text-secondary"></i>{{ u.username }}</div>
+                    </td>
+                    <td><span class="font-monospace">{{ u.email|default:"- Tidak ada email -" }}</span></td>
+                    <td>
+                        {% if u.is_superuser %}
+                            <span class="badge bg-danger">Superadmin</span>
+                        {% elif u.is_staff %}
+                            <span class="badge bg-warning text-dark">Staff / Mekanik</span>
+                        {% else %}
+                            <span class="badge bg-info text-dark">Pelanggan</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <small class="text-muted">
+                            {% if u.last_login %}
+                                {{ u.last_login|date:"d M Y, H:i" }} WIB
+                            {% else %}
+                                Belum pernah login
+                            {% endif %}
+                        </small>
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'dashboard:user_delete' u.pk %}" 
+                           class="btn btn-outline-danger btn-sm"
+                           onclick="return confirm('Apakah Anda yakin ingin menghapus user {{ u.username }}?');">
+                            <i class="fa-solid fa-trash-can"></i> Hapus
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center py-5 text-muted">
+                        <i class="fa-solid fa-users-slash fa-3x mb-3 text-black-50"></i>
+                        Tidak ada data pengguna terdaftar.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

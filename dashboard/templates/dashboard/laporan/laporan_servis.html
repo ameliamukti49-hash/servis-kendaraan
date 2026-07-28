@@ -1,0 +1,91 @@
+{% extends 'dashboard/base_admin.html' %}
+
+{% block title %}Laporan Tindakan Servis | Admin{% endblock %}
+{% block page_title %}Laporan Pekerjaan Mekanik (Work Order){% endblock %}
+
+{% block content %}
+<div class="card mb-4 shadow-sm" style="border-radius: 12px;">
+    <div class="card-header bg-white py-3 border-0">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fa-solid fa-filter me-2"></i>Filter Rentang Tanggal</h6>
+    </div>
+    <div class="card-body">
+        <form method="GET" action="" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label for="tgl_mulai" class="form-label font-monospace" style="font-size: 0.85rem;">TANGGAL MULAI</label>
+                <input type="date" class="form-control" id="tgl_mulai" name="tgl_mulai" value="{{ request.GET.tgl_mulai }}">
+            </div>
+            <div class="col-md-4">
+                <label for="tgl_selesai" class="form-label font-monospace" style="font-size: 0.85rem;">TANGGAL SELESAI</label>
+                <input type="date" class="form-control" id="tgl_selesai" name="tgl_selesai" value="{{ request.GET.tgl_selesai }}">
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fa-solid fa-magnifying-glass me-1"></i> Saring Data
+                </button>
+                <a href="{% url 'dashboard:laporan_servis' %}" class="btn btn-secondary">
+                    <i class="fa-solid fa-rotate"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="text-muted">
+        Menampilkan <strong>{{ work_orders|length }}</strong> catatan riwayat servis.
+    </div>
+    <div>
+        <a href="{% url 'dashboard:cetak_servis_pdf' %}?tgl_mulai={{ request.GET.tgl_mulai }}&tgl_selesai={{ request.GET.tgl_selesai }}" 
+           class="btn btn-danger shadow-sm" target="_blank">
+            <i class="fa-solid fa-file-pdf me-1"></i> Ekspor PDF
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-5" style="border-radius: 12px; overflow: hidden;">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%;">No</th>
+                    <th scope="col">No. WO</th>
+                    <th scope="col">Kendaraan & Pemilik</th>
+                    <th scope="col">Mekanik</th>
+                    <th scope="col">Diagnosa</th>
+                    <th scope="col" class="text-center">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for wo in work_orders %}
+                <tr>
+                    <td class="text-center font-monospace text-muted">{{ forloop.counter }}</td>
+                    <td><strong class="text-success font-monospace">#WO-{{ wo.id }}</strong></td>
+                    <td>
+                        <div class="fw-bold">{{ wo.booking.kendaraan.merk }}</div>
+                        <small class="text-muted">Pemilik: {{ wo.booking.user.username }}</small>
+                    </td>
+                    <td><div class="fw-bold"><i class="fa-solid fa-user-nut text-secondary me-1"></i> {{ wo.mekanik.nama }}</div></td>
+                    <td><span class="text-truncate d-inline-block" style="max-width: 250px;">{{ wo.diagnosa|default:"-" }}</span></td>
+                    <td class="text-center">
+                        {% if wo.status == 'Selesai' %}
+                            <span class="badge bg-success">Selesai</span>
+                        {% elif wo.status == 'Dikerjakan' %}
+                            <span class="badge bg-primary">Dikerjakan</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">Antrean</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center py-5 text-muted">
+                        <i class="fa-solid fa-folder-open fa-3x mb-3 d-block text-black-50"></i>
+                        Tidak ada riwayat aktivitas servis terdata.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

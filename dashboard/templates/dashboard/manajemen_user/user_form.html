@@ -1,0 +1,61 @@
+{% extends 'dashboard/base_admin.html' %}
+
+{% block title %}Tambah User Baru | Admin{% endblock %}
+{% block page_title %}Tambah Pengguna Baru{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card shadow-sm border-0 mb-5" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger mb-3" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label fw-bold">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username unik" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-bold">Alamat Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="nama@email.com" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label fw-bold">Password Akun</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Minimal 6 karakter" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="role" class="form-label fw-bold">Role Tingkat Akses</label>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value="pelanggan">Pelanggan (Regular User)</option>
+                            <option value="admin">Staff / Mekanik / Admin (Is Staff)</option>
+                        </select>
+                        <div class="form-text text-muted">Akses 'Staff' mengizinkan pengguna masuk ke sistem operasional bengkel.</div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="fa-solid fa-floppy-disk me-1"></i> Simpan User
+                        </button>
+                        <a href="{% url 'dashboard:user_list' %}" class="btn btn-light px-4 border">
+                            Batal
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
