@@ -1,6 +1,7 @@
 from django.db import models
 from mekanik.models import WorkOrder
 
+
 class Sparepart(models.Model):
     nama = models.CharField(max_length=100)
     harga = models.DecimalField(max_digits=10, decimal_places=2)
@@ -16,6 +17,7 @@ class JasaServis(models.Model):
 
     def __str__(self):
         return self.nama
+
 
 class DetailSparepart(models.Model):
     workorder = models.ForeignKey(
@@ -33,11 +35,17 @@ class DetailSparepart(models.Model):
 
     subtotal = models.DecimalField(
         max_digits=12,
-        decimal_places=2
+        decimal_places=2,
+        default=0
     )
+
+    def save(self, *args, **kwargs):
+        self.subtotal = self.sparepart.harga * self.jumlah
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.workorder} - {self.sparepart}"
+
 
 class DetailJasa(models.Model):
     workorder = models.ForeignKey(
@@ -53,11 +61,17 @@ class DetailJasa(models.Model):
 
     subtotal = models.DecimalField(
         max_digits=12,
-        decimal_places=2
+        decimal_places=2,
+        default=0
     )
+
+    def save(self, *args, **kwargs):
+        self.subtotal = self.jasa.biaya
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.workorder} - {self.jasa}"
+
 
 class Pembayaran(models.Model):
 
@@ -100,8 +114,14 @@ class Pembayaran(models.Model):
         auto_now_add=True
     )
 
+    STATUS = (
+        ('Lunas', 'Lunas'),
+        ('Belum Lunas', 'Belum Lunas'),
+    )
+
     status = models.CharField(
         max_length=20,
+        choices=STATUS,
         default='Lunas'
     )
 

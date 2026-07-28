@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% if edit %}
+            Edit Pembayaran
+        {% else %}
+            Tambah Pembayaran
+        {% endif %}
+    </title>
+</head>
+<body>
+
+    {% if edit %}
+        <h2>Edit Pembayaran</h2>
+    {% else %}
+        <h2>Tambah Pembayaran</h2>
+    {% endif %}
+
+    <hr>
+
+    <h3>Informasi Work Order</h3>
+
+    <table>
+        <tr>
+            <td><b>Work Order</b></td>
+            <td>: {{ workorder }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Total Sparepart</b></td>
+            <td>: Rp {{ total_sparepart }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Total Jasa</b></td>
+            <td>: Rp {{ total_jasa }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Total Bayar</b></td>
+            <td><b>: Rp {{ total_bayar }}</b></td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            {% if edit %}
+                Update Pembayaran
+            {% else %}
+                Simpan Pembayaran
+            {% endif %}
+        </button>
+
+        <a href="{% url 'daftar_pembayaran' %}">
+            Batal
+        </a>
+
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Pembayaran</title>
+</head>
+<body>
+
+<h2>Daftar Pembayaran</h2>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>No</th>
+        <th>Work Order</th>
+        <th>Total Sparepart</th>
+        <th>Total Jasa</th>
+        <th>Total Bayar</th>
+        <th>Metode</th>
+        <th>Status</th>
+        <th>Tanggal</th>
+        <th>Aksi</th>
+    </tr>
+
+    {% for item in pembayaran %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.workorder }}</td>
+        <td>Rp {{ item.total_sparepart }}</td>
+        <td>Rp {{ item.total_jasa }}</td>
+        <td><b>Rp {{ item.total_bayar }}</b></td>
+        <td>{{ item.metode }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.tanggal_bayar }}</td>
+        <td>
+            <a href="{% url 'edit_pembayaran' item.id %}">
+                Edit
+            </a>
+            |
+            <a href="{% url 'invoice' item.id %}">
+                Invoice
+            </a>
+        </td>
+    </tr>
+
+    {% empty %}
+    <tr>
+        <td colspan="9" align="center">
+            Belum ada data pembayaran.
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br>
+
+<a href="{% url 'daftar_sparepart' %}">
+    Data Sparepart
+</a>
+
+|
+
+<a href="{% url 'daftar_jasa' %}">
+    Data Jasa
+</a>
+
+</body>
+</html>

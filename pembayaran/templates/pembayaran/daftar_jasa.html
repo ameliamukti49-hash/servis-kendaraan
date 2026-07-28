@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Jasa Servis</title>
+</head>
+<body>
+
+<h2>Daftar Jasa Servis</h2>
+
+<a href="{% url 'tambah_jasa' %}">
+    + Tambah Jasa
+</a>
+
+<br><br>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>No</th>
+        <th>Nama Jasa</th>
+        <th>Biaya</th>
+        <th>Aksi</th>
+    </tr>
+
+    {% for item in jasa %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.nama }}</td>
+        <td>Rp {{ item.biaya }}</td>
+        <td>
+            <a href="{% url 'edit_jasa' item.id %}">Edit</a> |
+            <a href="{% url 'hapus_jasa' item.id %}">Hapus</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">Belum ada data jasa.</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

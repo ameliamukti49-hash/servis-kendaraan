@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pembayaran</title>
+</head>
+<body>
+
+<h2>Pembayaran Servis</h2>
+
+<p><b>Work Order :</b> {{ workorder }}</p>
+
+<p>Total Sparepart : Rp {{ total_sparepart }}</p>
+
+<p>Total Jasa : Rp {{ total_jasa }}</p>
+
+<p><b>Total Bayar : Rp {{ total_bayar }}</b></p>
+
+<form method="POST">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button type="submit">
+Simpan Pembayaran
+</button>
+
+</form>
+
+</body>
+</html>
