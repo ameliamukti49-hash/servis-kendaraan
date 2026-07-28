@@ -1,24 +1,110 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Form Sparepart</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h2>Form Sparepart</h2>
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-primary text-white">
+
+<h5 class="mb-0">
+
+<i class="fa-solid fa-box"></i>
+
+Form Sparepart
+
+</h5>
+
+</div>
+
+
+
+
+<div class="card-body">
+
 
 <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
 
-    <button type="submit">Simpan</button>
-</form>
 
-<br>
+{% csrf_token %}
 
-<a href="{% url 'daftar_sparepart' %}">
-    Kembali
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Nama Sparepart
+</label>
+
+{{ form.nama }}
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Harga
+</label>
+
+{{ form.harga }}
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Stok
+</label>
+
+{{ form.stok }}
+
+</div>
+
+
+
+
+<button type="submit"
+class="btn btn-primary">
+
+<i class="fa-solid fa-save"></i>
+
+Simpan
+
+</button>
+
+
+
+<a href="{% url 'daftar_sparepart' %}"
+class="btn btn-secondary">
+
+Kembali
+
 </a>
 
-</body>
-</html>
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

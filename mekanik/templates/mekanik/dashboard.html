@@ -1,40 +1,296 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard Mekanik</title>
-</head>
-<body>
-    <h2>Dashboard Mekanik</h2>
-
-<ul>
-    <li><a href="{% url 'mekanik:data_mekanik' %}">Data Mekanik</a></li>
-    <li><a href="{% url 'mekanik:daftar_workorder' %}">Work Order</a></li>
-</ul>
-</body>
-</html>
+{% extends 'dashboard/base_dashboard.html' %}
 
 
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="row">
+
+
+<!-- TOTAL WORK ORDER -->
+
+<div class="col-md-4 mb-3">
+
+<div class="card shadow border-0">
+
+<div class="card-body bg-primary text-white rounded">
+
+
+<h6>
+Total Work Order
+</h6>
+
+
+<h2>
+{{ total_workorder }}
+</h2>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+<!-- DIPROSES -->
+
+<div class="col-md-4 mb-3">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-body bg-warning rounded">
+
+
+<h6>
+Sedang Dikerjakan
+</h6>
+
+
+<h2>
+{{ dikerjakan }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- SELESAI -->
+
+
+<div class="col-md-4 mb-3">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-body bg-success text-white rounded">
+
+
+<h6>
+Servis Selesai
+</h6>
+
+
+<h2>
+{{ selesai }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
 
 
 
 
 
 
+<!-- DAFTAR WORK ORDER -->
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-success text-white">
+
+
+<h5 class="mb-0">
+
+Daftar Pekerjaan Terbaru
+
+</h5>
+
+
+</div>
 
 
 
 
 
+<div class="card-body">
+
+
+<table class="table table-bordered table-hover">
+
+
+<thead class="table-success">
+
+
+<tr>
+
+<th>No</th>
+
+<th>No Polisi</th>
+
+<th>Mekanik</th>
+
+<th>Status</th>
+
+<th>Aksi</th>
+
+</tr>
+
+
+</thead>
 
 
 
 
 
+<tbody>
+
+
+
+{% for wo in workorders %}
+
+
+
+<tr>
+
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+<td>
+
+{{ wo.booking.kendaraan.nomor_polisi }}
+
+</td>
+
+
+
+<td>
+
+{{ wo.mekanik.nama }}
+
+</td>
 
 
 
 
+<td>
+
+
+{% if wo.status == "selesai" %}
+
+
+<span class="badge bg-success">
+
+Selesai
+
+</span>
+
+
+{% elif wo.status == "dikerjakan" %}
+
+
+<span class="badge bg-warning text-dark">
+
+Dikerjakan
+
+</span>
+
+
+{% else %}
+
+
+<span class="badge bg-primary">
+
+Diproses
+
+</span>
+
+
+{% endif %}
+
+
+</td>
 
 
 
 
+<td>
+
+
+<a href="{% url 'mekanik:detail_servis' wo.id %}"
+class="btn btn-info btn-sm text-white">
+
+Detail
+
+</a>
+
+
+</td>
+
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="5"
+class="text-center">
+
+Belum ada Work Order
+
+
+</td>
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

@@ -1,43 +1,153 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Daftar Sparepart</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h2>Daftar Sparepart</h2>
 
-<a href="{% url 'tambah_sparepart' %}">+ Tambah Sparepart</a>
+{% block content %}
 
-<br><br>
 
-<table border="1" cellpadding="8">
-    <tr>
-        <th>No</th>
-        <th>Nama</th>
-        <th>Harga</th>
-        <th>Stok</th>
-        <th>Aksi</th>
-    </tr>
+<div class="container-fluid">
 
-    {% for sparepart in spareparts %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ sparepart.nama }}</td>
-        <td>{{ sparepart.harga }}</td>
-        <td>{{ sparepart.stok }}</td>
-        <td>
-            <a href="{% url 'edit_sparepart' sparepart.id %}">Edit</a>
-            |
-            <a href="{% url 'hapus_sparepart' sparepart.id %}">Hapus</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="5">Belum ada data.</td>
-    </tr>
-    {% endfor %}
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-primary text-white">
+
+
+<a href="{% url 'tambah_sparepart' %}"
+class="btn btn-light btn-sm float-end">
+
++ Tambah Sparepart
+
+</a>
+
+
+<h5 class="mb-0">
+
+Data Sparepart
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<table class="table table-bordered table-hover">
+
+
+<thead class="table-primary">
+
+
+<tr>
+
+<th>No</th>
+
+<th>Nama Sparepart</th>
+
+<th>Harga</th>
+
+<th>Stok</th>
+
+<th>Aksi</th>
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+{% for item in spareparts %}
+
+
+<tr>
+
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+<td>
+{{ item.nama }}
+</td>
+
+
+<td>
+Rp {{ item.harga }}
+</td>
+
+
+<td>
+{{ item.stok }}
+</td>
+
+
+<td>
+
+
+<a href="{% url 'edit_sparepart' item.id %}"
+class="btn btn-warning btn-sm">
+
+Edit
+
+</a>
+
+
+<a href="{% url 'hapus_sparepart' item.id %}"
+class="btn btn-danger btn-sm">
+
+Hapus
+
+</a>
+
+
+</td>
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="5"
+class="text-center">
+
+Belum ada data sparepart
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
 </table>
 
-</body>
-</html>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

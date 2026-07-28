@@ -1,35 +1,330 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Detail Servis</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h2>Detail Servis</h2>
 
-<p><strong>No Polisi:</strong> {{ workorder.booking.kendaraan.nomor_polisi }}</p>
+{% block content %}
 
-<p><strong>Keluhan:</strong> {{ workorder.booking.keluhan }}</p>
 
-<p><strong>Mekanik:</strong> {{ workorder.mekanik.nama }}</p>
+<div class="container-fluid">
 
-<hr>
 
-<form method="post">
-    {% csrf_token %}
+<div class="card shadow border-0">
 
-    {{ form.as_p }}
 
-    <button type="submit">
-        Simpan Hasil Servis
-    </button>
-</form>
+<div class="card-header bg-info text-white">
 
-<br><br>
 
-<a href="{% url 'mekanik:daftar_workorder' %}">
-    Kembali ke Daftar Work Order
+<h5 class="mb-0">
+
+<i class="fa-solid fa-screwdriver-wrench"></i>
+
+Detail Servis
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+
+<!-- INFORMASI SERVIS -->
+
+<div class="card mb-4">
+
+
+<div class="card-header bg-light">
+
+<h6 class="mb-0">
+
+Informasi Kendaraan
+
+</h6>
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th width="30%">
+Nomor Polisi
+</th>
+
+<td>
+
+{{ workorder.booking.kendaraan.nomor_polisi }}
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<th>
+Keluhan Pelanggan
+</th>
+
+<td>
+
+{{ workorder.booking.keluhan }}
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<th>
+Mekanik
+</th>
+
+<td>
+
+{{ workorder.mekanik.nama }}
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<th>
+Status Servis
+</th>
+
+
+<td>
+
+
+{% if workorder.status == "selesai" %}
+
+<span class="badge bg-success">
+
+Selesai
+
+</span>
+
+
+{% elif workorder.status == "dikerjakan" %}
+
+<span class="badge bg-warning text-dark">
+
+Dikerjakan
+
+</span>
+
+
+{% else %}
+
+<span class="badge bg-primary">
+
+Diproses
+
+</span>
+
+
+{% endif %}
+
+
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<th>
+Tanggal Mulai
+</th>
+
+<td>
+
+{{ workorder.tanggal_mulai }}
+
+</td>
+
+</tr>
+
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- FORM UPDATE -->
+
+
+<div class="card">
+
+
+<div class="card-header bg-success text-white">
+
+
+<h6 class="mb-0">
+
+Update Pekerjaan
+
+</h6>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+<div class="mb-3">
+
+
+<label class="form-label">
+
+Diagnosa
+
+</label>
+
+
+{{ form.diagnosa }}
+
+
+</div>
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="form-label">
+
+Tindakan Servis
+
+</label>
+
+
+{{ form.tindakan }}
+
+
+</div>
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="form-label">
+
+Status
+
+</label>
+
+
+{{ form.status }}
+
+
+</div>
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="form-label">
+
+Tanggal Selesai
+
+</label>
+
+
+{{ form.tanggal_selesai }}
+
+
+</div>
+
+
+
+
+
+<button type="submit"
+class="btn btn-success">
+
+
+<i class="fa-solid fa-save"></i>
+
+Simpan Perubahan
+
+
+</button>
+
+
+
+
+<a href="{% url 'mekanik:daftar_workorder' %}"
+class="btn btn-secondary">
+
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Kembali
+
+
 </a>
 
-</body>
-</html>
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

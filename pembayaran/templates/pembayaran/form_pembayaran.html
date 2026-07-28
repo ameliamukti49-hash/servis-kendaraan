@@ -15,15 +15,12 @@
 
 <h5 class="mb-0">
 
-<i class="fa-solid fa-gears"></i>
-
-Form Jasa Servis
+Tambah Pembayaran
 
 </h5>
 
 
 </div>
-
 
 
 
@@ -41,10 +38,12 @@ Form Jasa Servis
 <div class="mb-3">
 
 <label class="form-label">
-Nama Jasa
+
+Work Order
+
 </label>
 
-{{ form.nama }}
+{{ form.workorder }}
 
 </div>
 
@@ -54,29 +53,61 @@ Nama Jasa
 <div class="mb-3">
 
 <label class="form-label">
-Biaya
+
+Total Sparepart
+
 </label>
 
-{{ form.biaya }}
+{{ form.total_sparepart }}
 
 </div>
 
 
 
 
-<button type="submit"
-class="btn btn-success">
+<div class="mb-3">
+
+<label class="form-label">
+
+Total Jasa
+
+</label>
+
+{{ form.total_jasa }}
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Metode Pembayaran
+
+</label>
+
+{{ form.metode }}
+
+</div>
+
+
+
+
+
+<button class="btn btn-success">
 
 <i class="fa-solid fa-save"></i>
 
-Simpan
+Simpan Pembayaran
 
 </button>
 
 
 
 
-<a href="{% url 'daftar_jasa' %}"
+<a href="{% url 'daftar_pembayaran' %}"
 class="btn btn-secondary">
 
 Kembali
@@ -95,7 +126,6 @@ Kembali
 
 
 </div>
-
 
 
 {% endblock %}

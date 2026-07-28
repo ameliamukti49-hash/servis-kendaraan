@@ -1,42 +1,216 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Data Mekanik</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h2>Data Mekanik</h2>
 
-<a href="{% url 'mekanik:tambah_mekanik' %}">
-    <button>+ Tambah Mekanik</button>
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-primary text-white">
+
+
+<a href="{% url 'mekanik:tambah_mekanik' %}"
+class="btn btn-light btn-sm float-end">
+
++ Tambah Mekanik
+
 </a>
 
-<br><br>
 
-<table border="1" cellpadding="10">
-    <tr>
-        <th>No</th>
-        <th>Nama</th>
-        <th>Keahlian</th>
-        <th>No HP</th>
-        <th>Status</th>
-    </tr>
+<h5 class="mb-0">
 
-    {% for m in mekanik %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ m.nama }}</td>
-        <td>{{ m.keahlian }}</td>
-        <td>{{ m.no_hp }}</td>
-        <td>{{ m.status }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="5">Belum ada data mekanik.</td>
-    </tr>
-    {% endfor %}
+Data Mekanik
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+
+<table class="table table-bordered table-hover">
+
+
+<thead class="table-primary">
+
+
+<tr>
+
+<th>No</th>
+
+<th>Nama</th>
+
+<th>Keahlian</th>
+
+<th>No HP</th>
+
+<th>Status</th>
+
+<th>Aksi</th>
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+
+{% for mekanik in mekanik %}
+
+
+
+<tr>
+
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+
+<td>
+{{ mekanik.nama }}
+</td>
+
+
+
+<td>
+{{ mekanik.keahlian }}
+</td>
+
+
+
+<td>
+{{ mekanik.no_hp }}
+</td>
+
+
+
+
+<td>
+
+{% if mekanik.status == "Aktif" %}
+
+<span class="badge bg-success">
+
+{{ mekanik.status }}
+
+</span>
+
+
+{% else %}
+
+
+<span class="badge bg-danger">
+
+{{ mekanik.status }}
+
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+<td>
+
+
+<a href="{% url 'mekanik:edit_mekanik' mekanik.id %}"
+class="btn btn-warning btn-sm">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+
+
+
+<a href="{% url 'mekanik:hapus_mekanik' mekanik.id %}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Yakin ingin menghapus mekanik ini?')">
+
+
+<i class="fa-solid fa-trash"></i>
+
+Hapus
+
+
+</a>
+
+
+
+</td>
+
+
+
+</tr>
+
+
+
+
+{% empty %}
+
+
+
+<tr>
+
+
+<td colspan="6" class="text-center">
+
+
+Belum ada data mekanik
+
+
+</td>
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+
+</tbody>
+
+
 
 </table>
 
-</body>
-</html>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

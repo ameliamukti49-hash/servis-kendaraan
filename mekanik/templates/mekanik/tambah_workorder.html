@@ -1,17 +1,168 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tambah Work Order</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h2>Tambah Work Order</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Simpan</button>
-</form>
+{% block content %}
 
-</body>
-</html>
+
+<div class="container-fluid">
+
+
+    <div class="card shadow border-0">
+
+
+        <div class="card-header bg-success text-white">
+
+            <h5 class="mb-0">
+                Tambah Work Order
+            </h5>
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+
+                <div class="row">
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Booking Servis
+                        </label>
+
+                        {{ form.booking }}
+
+                    </div>
+
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Mekanik
+                        </label>
+
+                        {{ form.mekanik }}
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Diagnosa
+                    </label>
+
+
+                    {{ form.diagnosa }}
+
+
+                </div>
+
+
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Tindakan
+                    </label>
+
+
+                    {{ form.tindakan }}
+
+
+                </div>
+
+
+
+
+
+                <div class="row">
+
+
+                    <div class="col-md-6 mb-3">
+
+
+                        <label class="form-label">
+                            Status
+                        </label>
+
+
+                        {{ form.status }}
+
+
+                    </div>
+
+
+
+
+                    <div class="col-md-6 mb-3">
+
+
+                        <label class="form-label">
+                            Tanggal Selesai
+                        </label>
+
+
+                        {{ form.tanggal_selesai }}
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+                <button type="submit"
+                        class="btn btn-success">
+
+                    <i class="fa-solid fa-save"></i>
+                    Simpan Work Order
+
+                </button>
+
+
+
+                <a href="{% url 'mekanik:daftar_workorder' %}"
+                   class="btn btn-secondary">
+
+                    Kembali
+
+                </a>
+
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}

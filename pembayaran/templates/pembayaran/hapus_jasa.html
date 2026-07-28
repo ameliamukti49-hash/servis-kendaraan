@@ -1,0 +1,128 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-danger text-white">
+
+
+<h5 class="mb-0">
+
+<i class="fa-solid fa-trash"></i>
+
+Hapus Jasa Servis
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<p>
+
+Apakah Anda yakin ingin menghapus jasa berikut?
+
+</p>
+
+
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th width="30%">
+Nama Jasa
+</th>
+
+<td>
+{{ jasa.nama }}
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Biaya
+</th>
+
+<td>
+Rp {{ jasa.biaya }}
+</td>
+
+</tr>
+
+
+
+</table>
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+<button type="submit"
+class="btn btn-danger">
+
+
+<i class="fa-solid fa-trash"></i>
+
+Ya, Hapus
+
+
+</button>
+
+
+
+
+
+<a href="{% url 'daftar_jasa' %}"
+class="btn btn-secondary">
+
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Batal
+
+
+</a>
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

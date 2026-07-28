@@ -4,10 +4,61 @@ from . import views
 app_name = 'mekanik'
 
 urlpatterns = [
+
     path('', views.dashboard_mekanik, name='dashboard'),
-    path('data/', views.data_mekanik, name='data_mekanik'),
-    path('tambah/', views.tambah_mekanik, name='tambah_mekanik'),
-    path('workorder/', views.daftar_workorder, name='daftar_workorder'),
-    path('workorder/tambah/', views.tambah_workorder, name='tambah_workorder'),
-    path('workorder/<int:pk>/',views.detail_servis,name='detail_servis'),
+
+    path(
+        'data/',
+        views.data_mekanik,
+        name='data_mekanik'
+    ),
+
+    path(
+        'tambah/',
+        views.tambah_mekanik,
+        name='tambah_mekanik'
+    ),
+
+    path(
+        'edit/<int:pk>/',
+        views.edit_mekanik,
+        name='edit_mekanik'
+    ),
+
+    path(
+        'hapus/<int:pk>/',
+        views.hapus_mekanik,
+        name='hapus_mekanik'
+    ),
+
+
+    path(
+        'workorder/',
+        views.daftar_workorder,
+        name='daftar_workorder'
+    ),
+
+    path(
+        'workorder/tambah/',
+        views.tambah_workorder,
+        name='tambah_workorder'
+    ),
+
+    path(
+        'workorder/<int:pk>/',
+        views.detail_servis,
+        name='detail_servis'
+    ),
+    
+    path(
+    'edit/<int:pk>/',
+    views.edit_mekanik,
+    name='edit_mekanik'
+),
+
+    path(
+    'hapus/<int:pk>/',
+    views.hapus_mekanik,
+    name='hapus_mekanik'
+),
 ]

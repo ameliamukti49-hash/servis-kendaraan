@@ -3,7 +3,13 @@ from .models import Sparepart
 from .forms import SparepartForm
 from .models import Sparepart, JasaServis
 from .forms import SparepartForm, JasaServisForm
-
+from .models import Pembayaran
+from .forms import PembayaranForm
+from .models import Pembayaran
+from .forms import PembayaranForm
+from mekanik.models import WorkOrder
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
 
 def daftar_sparepart(request):
     spareparts = Sparepart.objects.all()
@@ -100,3 +106,248 @@ def hapus_jasa(request, pk):
     return render(request, 'pembayaran/hapus_jasa.html', {
         'jasa': jasa
     })
+    
+from mekanik.models import WorkOrder
+
+
+
+def daftar_pembayaran(request):
+
+    pembayaran = Pembayaran.objects.all()
+
+
+    return render(
+        request,
+        'pembayaran/daftar_pembayaran.html',
+        {
+            'pembayaran': pembayaran
+        }
+    )
+
+
+
+
+def tambah_pembayaran(request):
+
+
+    if request.method == "POST":
+
+
+        form = PembayaranForm(request.POST)
+
+
+        if form.is_valid():
+
+
+            pembayaran = form.save(commit=False)
+
+
+            pembayaran.total_bayar = (
+                pembayaran.total_sparepart +
+                pembayaran.total_jasa
+            )
+
+
+            pembayaran.status = "Lunas"
+
+
+            pembayaran.save()
+
+
+            return redirect(
+                'daftar_pembayaran'
+            )
+
+
+    else:
+
+
+        form = PembayaranForm()
+
+
+
+    return render(
+        request,
+        'pembayaran/form_pembayaran.html',
+        {
+            'form':form
+        }
+    )
+
+
+
+
+
+def detail_pembayaran(request, pk):
+
+
+    pembayaran = get_object_or_404(
+        Pembayaran,
+        pk=pk
+    )
+
+
+    return render(
+        request,
+        'pembayaran/detail_pembayaran.html',
+        {
+            'pembayaran':pembayaran
+        }
+    )
+
+def daftar_pembayaran(request):
+
+    pembayaran = Pembayaran.objects.all().order_by("-id")
+
+
+    return render(
+        request,
+        'pembayaran/daftar_pembayaran.html',
+        {
+            'pembayaran': pembayaran
+        }
+    )
+
+
+
+def tambah_pembayaran(request):
+
+    if request.method == "POST":
+
+        form = PembayaranForm(request.POST)
+
+
+        if form.is_valid():
+
+            pembayaran = form.save(commit=False)
+
+
+            pembayaran.total_bayar = (
+                pembayaran.total_sparepart +
+                pembayaran.total_jasa
+            )
+
+
+            pembayaran.status = "Lunas"
+
+
+            pembayaran.save()
+
+
+            return redirect(
+                'daftar_pembayaran'
+            )
+
+
+    else:
+
+        form = PembayaranForm()
+
+
+
+    return render(
+        request,
+        'pembayaran/form_pembayaran.html',
+        {
+            'form': form
+        }
+    )
+
+
+
+def detail_pembayaran(request, pk):
+
+    pembayaran = get_object_or_404(
+        Pembayaran,
+        pk=pk
+    )
+
+
+    return render(
+        request,
+        'pembayaran/detail_pembayaran.html',
+        {
+            'pembayaran': pembayaran
+        }
+    )
+    
+def cetak_invoice(request, pk):
+
+    pembayaran = get_object_or_404(
+        Pembayaran,
+        pk=pk
+    )
+
+
+    response = HttpResponse(
+        content_type='application/pdf'
+    )
+
+    response['Content-Disposition'] = (
+        f'attachment; filename="invoice_{pembayaran.id}.pdf"'
+    )
+
+
+    pdf = canvas.Canvas(response)
+
+
+    pdf.drawString(
+        100,
+        800,
+        "BENGKELKU - INVOICE PEMBAYARAN"
+    )
+
+
+    pdf.drawString(
+        100,
+        760,
+        f"ID Pembayaran : {pembayaran.id}"
+    )
+
+
+    pdf.drawString(
+        100,
+        730,
+        f"Work Order : {pembayaran.workorder}"
+    )
+
+
+    pdf.drawString(
+        100,
+        700,
+        f"Total Sparepart : Rp {pembayaran.total_sparepart}"
+    )
+
+
+    pdf.drawString(
+        100,
+        670,
+        f"Total Jasa : Rp {pembayaran.total_jasa}"
+    )
+
+
+    pdf.drawString(
+        100,
+        640,
+        f"Total Bayar : Rp {pembayaran.total_bayar}"
+    )
+
+
+    pdf.drawString(
+        100,
+        610,
+        f"Metode : {pembayaran.metode}"
+    )
+
+
+    pdf.drawString(
+        100,
+        580,
+        f"Status : {pembayaran.status}"
+    )
+
+
+    pdf.save()
+
+
+    return response

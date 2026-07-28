@@ -1,60 +1,232 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/base_dashboard.html' %}
+
 
 {% block content %}
 
-<div class="container mt-4">
 
-    <div class="card">
+<div class="container-fluid">
 
-        <div class="card-header bg-danger text-white">
-            <h4>Hapus Booking Servis</h4>
-        </div>
 
-        <div class="card-body">
+<div class="card shadow border-0">
 
-            <p>Apakah Anda yakin ingin menghapus booking servis berikut?</p>
 
-            <table class="table">
+<div class="card-header bg-danger text-white">
 
-                <tr>
-                    <th>Kendaraan</th>
-                    <td>{{ booking.kendaraan.nomor_polisi }}</td>
-                </tr>
 
-                <tr>
-                    <th>Tanggal Booking</th>
-                    <td>{{ booking.tanggal_booking }}</td>
-                </tr>
+<h5 class="mb-0">
 
-                <tr>
-                    <th>Jam Booking</th>
-                    <td>{{ booking.jam_booking }}</td>
-                </tr>
+<i class="fa-solid fa-trash"></i>
 
-                <tr>
-                    <th>Status</th>
-                    <td>{{ booking.get_status_display }}</td>
-                </tr>
+Hapus Booking Servis
 
-            </table>
+</h5>
 
-            <form method="POST">
-                {% csrf_token %}
-
-                <button type="submit" class="btn btn-danger">
-                    Ya, Hapus
-                </button>
-
-                <a href="{% url 'booking_list' %}" class="btn btn-secondary">
-                    Batal
-                </a>
-
-            </form>
-
-        </div>
-
-    </div>
 
 </div>
+
+
+
+
+
+<div class="card-body">
+
+
+
+<p>
+
+Apakah Anda yakin ingin menghapus booking servis berikut?
+
+</p>
+
+
+
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th width="30%">
+Kendaraan
+</th>
+
+<td>
+
+{{ booking.kendaraan.nomor_polisi }}
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Merk Kendaraan
+</th>
+
+<td>
+
+{{ booking.kendaraan.merk }}
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Tanggal Booking
+</th>
+
+<td>
+
+{{ booking.tanggal_booking }}
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Jam Booking
+</th>
+
+<td>
+
+{{ booking.jam_booking }}
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Status
+</th>
+
+<td>
+
+{% if booking.status == "menunggu" %}
+
+<span class="badge bg-warning text-dark">
+Menunggu
+</span>
+
+
+{% elif booking.status == "diproses" %}
+
+<span class="badge bg-primary">
+Diproses
+</span>
+
+
+{% elif booking.status == "dikerjakan" %}
+
+<span class="badge bg-info">
+Dikerjakan
+</span>
+
+
+{% elif booking.status == "selesai" %}
+
+<span class="badge bg-success">
+Selesai
+</span>
+
+
+{% else %}
+
+<span class="badge bg-danger">
+Dibatalkan
+</span>
+
+
+{% endif %}
+
+</td>
+
+</tr>
+
+
+
+</table>
+
+
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+
+<button type="submit"
+class="btn btn-danger">
+
+
+<i class="fa-solid fa-trash"></i>
+
+Ya, Hapus
+
+
+</button>
+
+
+
+
+
+
+<a href="{% url 'booking_list' %}"
+class="btn btn-secondary">
+
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Batal
+
+
+</a>
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
 
 {% endblock %}

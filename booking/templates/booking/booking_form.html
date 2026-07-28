@@ -1,27 +1,175 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/base_dashboard.html' %}
+
 
 {% block content %}
 
-<div class="container mt-4">
 
-    <h2>{{ judul }}</h2>
+<div class="container-fluid">
 
-    <form method="POST">
 
-        {% csrf_token %}
+<div class="card shadow border-0">
 
-        {{ form.as_p }}
 
-        <button type="submit" class="btn btn-primary">
-            Simpan
-        </button>
+<div class="card-header bg-primary text-white">
 
-        <a href="{% url 'booking_list' %}" class="btn btn-secondary">
-            Kembali
-        </a>
 
-    </form>
+<h5 class="mb-0">
+
+<i class="fa-solid fa-calendar-check"></i>
+
+{{ judul }}
+
+</h5>
+
 
 </div>
+
+
+
+
+
+<div class="card-body">
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="form-label">
+
+Kendaraan
+
+</label>
+
+
+{{ form.kendaraan }}
+
+
+</div>
+
+
+
+
+
+
+
+<div class="row">
+
+
+<div class="col-md-6 mb-3">
+
+
+<label class="form-label">
+
+Tanggal Booking
+
+</label>
+
+
+{{ form.tanggal_booking }}
+
+
+</div>
+
+
+
+
+
+<div class="col-md-6 mb-3">
+
+
+<label class="form-label">
+
+Jam Booking
+
+</label>
+
+
+{{ form.jam_booking }}
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="form-label">
+
+Keluhan Kendaraan
+
+</label>
+
+
+{{ form.keluhan }}
+
+
+</div>
+
+
+
+
+
+
+
+<button type="submit"
+class="btn btn-primary">
+
+
+<i class="fa-solid fa-save"></i>
+
+Simpan
+
+
+</button>
+
+
+
+
+
+<a href="{% url 'booking_list' %}"
+class="btn btn-secondary">
+
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Kembali
+
+
+</a>
+
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
 
 {% endblock %}

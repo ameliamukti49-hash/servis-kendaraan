@@ -1,26 +1,145 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hapus Sparepart</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h2>Hapus Sparepart</h2>
 
-<p>Yakin ingin menghapus <b>{{ sparepart.nama }}</b> ?</p>
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-danger text-white">
+
+
+<h5 class="mb-0">
+
+<i class="fa-solid fa-trash"></i>
+
+Hapus Sparepart
+
+</h5>
+
+
+</div>
+
+
+
+
+
+<div class="card-body">
+
+
+<p>
+
+Apakah Anda yakin ingin menghapus sparepart berikut?
+
+</p>
+
+
+
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th width="30%">
+Nama Sparepart
+</th>
+
+<td>
+{{ sparepart.nama }}
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Harga
+</th>
+
+<td>
+Rp {{ sparepart.harga }}
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Stok
+</th>
+
+<td>
+{{ sparepart.stok }}
+</td>
+
+</tr>
+
+
+
+</table>
+
+
+
+
 
 <form method="POST">
-    {% csrf_token %}
 
-    <button type="submit">
-        Ya, Hapus
-    </button>
 
-    <a href="{% url 'daftar_sparepart' %}">
-        Batal
-    </a>
+{% csrf_token %}
+
+
+
+<button type="submit"
+class="btn btn-danger">
+
+
+<i class="fa-solid fa-trash"></i>
+
+Ya, Hapus
+
+
+</button>
+
+
+
+
+
+<a href="{% url 'daftar_sparepart' %}"
+class="btn btn-secondary">
+
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Batal
+
+
+</a>
+
+
 
 </form>
 
-</body>
-</html>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,25 +1,164 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tambah Mekanik</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h2>Tambah Data Mekanik</h2>
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-primary text-white">
+
+<h5 class="mb-0">
+Tambah Data Mekanik
+</h5>
+
+</div>
+
+
+
+<div class="card-body">
+
 
 <form method="POST">
-    {% csrf_token %}
 
-    {{ form.as_p }}
+{% csrf_token %}
 
-    <button type="submit">Simpan</button>
-</form>
 
-<br>
 
-<a href="{% url 'mekanik:data_mekanik' %}">
-    Kembali
+<div class="mb-3">
+
+<label class="form-label">
+Nama Mekanik
+</label>
+
+<input 
+type="text"
+name="nama"
+class="form-control"
+required>
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Keahlian
+</label>
+
+<input 
+type="text"
+name="keahlian"
+class="form-control"
+required>
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+No HP
+</label>
+
+<input 
+type="text"
+name="no_hp"
+class="form-control"
+required>
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Alamat
+</label>
+
+
+<textarea
+name="alamat"
+class="form-control"
+rows="3">
+
+</textarea>
+
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Status
+</label>
+
+
+<select 
+name="status"
+class="form-control">
+
+
+<option value="Aktif">
+Aktif
+</option>
+
+
+<option value="Tidak Aktif">
+Tidak Aktif
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+<button 
+type="submit"
+class="btn btn-primary">
+
+Simpan
+
+</button>
+
+
+
+<a href="{% url 'mekanik:data_mekanik' %}"
+class="btn btn-secondary">
+
+Kembali
+
 </a>
 
-</body>
-</html>
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

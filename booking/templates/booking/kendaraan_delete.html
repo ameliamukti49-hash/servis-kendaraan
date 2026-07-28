@@ -1,53 +1,173 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/base_dashboard.html' %}
+
 
 {% block content %}
 
-<div class="container mt-4">
 
-    <div class="card">
+<div class="container-fluid">
 
-        <div class="card-header bg-danger text-white">
-            <h4>Hapus Kendaraan</h4>
-        </div>
 
-        <div class="card-body">
+<div class="card shadow border-0">
 
-            <p>Apakah Anda yakin ingin menghapus kendaraan berikut?</p>
 
-            <table class="table">
-                <tr>
-                    <th>Nomor Polisi</th>
-                    <td>{{ kendaraan.nomor_polisi }}</td>
-                </tr>
+<div class="card-header bg-danger text-white">
 
-                <tr>
-                    <th>Merk</th>
-                    <td>{{ kendaraan.merk }}</td>
-                </tr>
 
-                <tr>
-                    <th>Tipe</th>
-                    <td>{{ kendaraan.tipe }}</td>
-                </tr>
-            </table>
+<h5 class="mb-0">
 
-            <form method="POST">
-                {% csrf_token %}
+<i class="fa-solid fa-trash"></i>
 
-                <button type="submit" class="btn btn-danger">
-                    Ya, Hapus
-                </button>
+Hapus Kendaraan
 
-                <a href="{% url 'kendaraan_list' %}" class="btn btn-secondary">
-                    Batal
-                </a>
+</h5>
 
-            </form>
-
-        </div>
-
-    </div>
 
 </div>
+
+
+
+
+<div class="card-body">
+
+
+
+<p>
+
+Apakah Anda yakin ingin menghapus kendaraan berikut?
+
+</p>
+
+
+
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th width="30%">
+Nomor Polisi
+</th>
+
+<td>
+
+{{ kendaraan.nomor_polisi }}
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Merk
+</th>
+
+<td>
+
+{{ kendaraan.merk }}
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Tipe
+</th>
+
+<td>
+
+{{ kendaraan.tipe }}
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Warna
+</th>
+
+<td>
+
+{{ kendaraan.warna }}
+
+</td>
+
+</tr>
+
+
+
+</table>
+
+
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+<button type="submit"
+class="btn btn-danger">
+
+
+<i class="fa-solid fa-trash"></i>
+
+Ya, Hapus
+
+
+</button>
+
+
+
+
+
+<a href="{% url 'kendaraan_list' %}"
+class="btn btn-secondary">
+
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Batal
+
+
+</a>
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
 
 {% endblock %}

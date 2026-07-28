@@ -1,48 +1,187 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Daftar Pekerjaan Mekanik</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h2>Daftar Pekerjaan Mekanik</h2>
 
-<table border="1" cellpadding="10">
-    <tr>
-        <th>No</th>
-        <th>No Polisi</th>
-        <th>Mekanik</th>
-        <th>Status</th>
-        <th>Aksi</th>
-    </tr>
+{% block content %}
 
-    {% for wo in workorders %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ wo.booking.kendaraan.nomor_polisi }}</td>
-        <td>{{ wo.mekanik.nama }}</td>
-        <td>{{ wo.get_status_display }}</td>
-        <td>
-            <a href="{% url 'mekanik:detail_servis' wo.id %}">
-                Detail Servis
-            </a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="5" align="center">
-            Belum ada pekerjaan.
-        </td>
-    </tr>
-    {% endfor %}
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-success text-white">
+
+
+<a href="{% url 'mekanik:tambah_workorder' %}"
+class="btn btn-light btn-sm float-end">
+
++ Tambah Work Order
+
+</a>
+
+
+<h5 class="mb-0">
+
+Daftar Pekerjaan Mekanik
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<table class="table table-bordered table-hover">
+
+
+<thead class="table-success">
+
+
+<tr>
+
+<th>No</th>
+
+<th>No Polisi</th>
+
+<th>Mekanik</th>
+
+<th>Status</th>
+
+<th>Aksi</th>
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+{% for wo in workorders %}
+
+
+
+<tr>
+
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+
+<td>
+
+{{ wo.booking.kendaraan.nomor_polisi }}
+
+</td>
+
+
+
+<td>
+
+{{ wo.mekanik.nama }}
+
+</td>
+
+
+
+<td>
+
+
+{% if wo.status == "selesai" %}
+
+<span class="badge bg-success">
+Selesai
+</span>
+
+
+{% elif wo.status == "dikerjakan" %}
+
+<span class="badge bg-warning text-dark">
+Dikerjakan
+</span>
+
+
+{% else %}
+
+<span class="badge bg-primary">
+Diproses
+</span>
+
+
+{% endif %}
+
+
+
+</td>
+
+
+
+<td>
+
+
+<a href="{% url 'mekanik:detail_servis' wo.id %}"
+class="btn btn-info btn-sm text-white">
+
+Detail
+
+</a>
+
+
+
+</td>
+
+
+</tr>
+
+
+
+
+{% empty %}
+
+
+
+<tr>
+
+<td colspan="5"
+class="text-center">
+
+Belum ada pekerjaan.
+
+
+</td>
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
 
 </table>
 
-<br>
 
-<a href="{% url 'mekanik:dashboard' %}">
-    ← Kembali ke Dashboard
-</a>
+</div>
 
-</body>
-</html>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

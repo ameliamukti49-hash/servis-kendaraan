@@ -13,19 +13,17 @@
 <div class="card-header bg-primary text-white">
 
 
-<a href="{% url 'kendaraan_create' %}"
+<a href="{% url 'tambah_pembayaran' %}"
 class="btn btn-light btn-sm float-end">
 
-<i class="fa-solid fa-car"></i>
-
-+ Tambah Kendaraan
++ Tambah Pembayaran
 
 </a>
 
 
 <h5 class="mb-0">
 
-Data Kendaraan Saya
+Daftar Pembayaran
 
 </h5>
 
@@ -38,46 +36,32 @@ Data Kendaraan Saya
 <div class="card-body">
 
 
-
 <table class="table table-bordered table-hover">
 
 
 <thead class="table-primary">
 
-
 <tr>
 
 <th>No</th>
-
-<th>Jenis</th>
-
-<th>Merk</th>
-
-<th>Tipe</th>
-
-<th>Tahun</th>
-
-<th>Nomor Polisi</th>
-
-<th>Warna</th>
-
+<th>Work Order</th>
+<th>Total Sparepart</th>
+<th>Total Jasa</th>
+<th>Total Bayar</th>
+<th>Metode</th>
+<th>Status</th>
 <th>Aksi</th>
 
 </tr>
 
-
 </thead>
-
-
 
 
 
 <tbody>
 
 
-
-{% for item in kendaraan %}
-
+{% for item in pembayaran %}
 
 
 <tr>
@@ -90,111 +74,87 @@ Data Kendaraan Saya
 
 
 <td>
-{{ item.jenis }}
+{{ item.workorder }}
 </td>
 
 
 
 <td>
-{{ item.merk }}
+Rp {{ item.total_sparepart }}
 </td>
 
 
 
 <td>
-{{ item.tipe }}
+Rp {{ item.total_jasa }}
 </td>
 
 
 
 <td>
-{{ item.tahun }}
+<strong>
+Rp {{ item.total_bayar }}
+</strong>
 </td>
 
 
 
 <td>
-{{ item.nomor_polisi }}
+{{ item.metode }}
 </td>
 
 
 
 <td>
-{{ item.warna }}
-</td>
 
+<span class="badge bg-success">
+
+{{ item.status }}
+
+</span>
+
+</td>
 
 
 
 <td>
 
 
-<a href="{% url 'kendaraan_update' item.id %}"
-class="btn btn-warning btn-sm">
+<a href="{% url 'detail_pembayaran' item.id %}"
+class="btn btn-info btn-sm text-white">
 
-
-<i class="fa-solid fa-pen"></i>
-
-Edit
-
-
-</a>
-
-
-
-
-<a href="{% url 'kendaraan_delete' item.id %}"
-class="btn btn-danger btn-sm">
-
-
-<i class="fa-solid fa-trash"></i>
-
-Hapus
-
+Detail
 
 </a>
 
 
 </td>
-
 
 
 </tr>
-
-
 
 
 {% empty %}
 
 
-
 <tr>
 
+<td colspan="8" class="text-center">
 
-<td colspan="8"
-class="text-center">
-
-
-Belum ada data kendaraan.
-
+Belum ada pembayaran
 
 </td>
-
 
 </tr>
 
 
-
 {% endfor %}
-
-
 
 
 </tbody>
 
 
 </table>
-
 
 
 </div>

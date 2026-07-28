@@ -1,0 +1,180 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-info text-white">
+
+
+<h5 class="mb-0">
+
+Detail Pembayaran
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th width="30%">
+Work Order
+</th>
+
+<td>
+{{ pembayaran.workorder }}
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<th>
+Total Sparepart
+</th>
+
+<td>
+Rp {{ pembayaran.total_sparepart }}
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Total Jasa
+</th>
+
+<td>
+Rp {{ pembayaran.total_jasa }}
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Total Bayar
+</th>
+
+<td>
+
+<strong>
+Rp {{ pembayaran.total_bayar }}
+</strong>
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Metode
+
+</th>
+
+<td>
+{{ pembayaran.metode }}
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Status
+
+</th>
+
+<td>
+
+<span class="badge bg-success">
+
+{{ pembayaran.status }}
+
+</span>
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<th>
+Tanggal Bayar
+
+</th>
+
+<td>
+{{ pembayaran.tanggal_bayar }}
+</td>
+
+</tr>
+
+
+
+</table>
+
+
+
+
+
+<a href="{% url 'daftar_pembayaran' %}"
+class="btn btn-secondary">
+
+Kembali
+
+</a>
+
+<a href="{% url 'cetak_invoice' pembayaran.id %}"
+class="btn btn-primary">
+
+Cetak Invoice
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}
