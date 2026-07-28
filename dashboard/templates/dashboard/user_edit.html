@@ -1,0 +1,173 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-warning">
+
+<h5 class="mb-0">
+
+Edit User
+
+</h5>
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+<div class="mb-3">
+
+<label>
+Username
+</label>
+
+
+<input 
+type="text"
+name="username"
+class="form-control"
+value="{{ user_edit.username }}"
+required>
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>
+Email
+</label>
+
+
+<input 
+type="email"
+name="email"
+class="form-control"
+value="{{ user_edit.email }}">
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>
+Role
+</label>
+
+
+
+<select 
+name="role"
+class="form-control">
+
+
+
+<option value="admin"
+{% if user_edit.role == "admin" %}selected{% endif %}>
+
+Admin
+
+</option>
+
+
+
+<option value="pelanggan"
+{% if user_edit.role == "pelanggan" %}selected{% endif %}>
+
+Pelanggan
+
+</option>
+
+
+
+
+<option value="mekanik"
+{% if user_edit.role == "mekanik" %}selected{% endif %}>
+
+Mekanik
+
+</option>
+
+
+
+
+<option value="kasir"
+{% if user_edit.role == "kasir" %}selected{% endif %}>
+
+Kasir
+
+</option>
+
+
+
+
+<option value="service_advisor"
+{% if user_edit.role == "service_advisor" %}selected{% endif %}>
+
+Service Advisor
+
+</option>
+
+
+
+</select>
+
+
+</div>
+
+
+
+
+<button 
+type="submit"
+class="btn btn-warning">
+
+Simpan Perubahan
+
+</button>
+
+
+
+<a href="{% url 'dashboard:user_list' %}"
+class="btn btn-secondary">
+
+Kembali
+
+</a>
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

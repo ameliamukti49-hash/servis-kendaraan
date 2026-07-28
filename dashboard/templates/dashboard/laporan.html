@@ -1,0 +1,361 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="row mb-4">
+
+
+<div class="col-md-4">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h6>Total Booking</h6>
+
+<h2>
+{{ total_booking }}
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-4">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h6>Total Servis</h6>
+
+<h2>
+{{ total_servis }}
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h6>Total Pembayaran</h6>
+
+<h2>
+{{ total_pembayaran }}
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- LAPORAN BOOKING -->
+
+<div class="card shadow mb-4">
+
+
+<div class="card-header bg-primary text-white">
+
+<h5>
+Laporan Booking Servis
+</h5>
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th>No</th>
+<th>Kendaraan</th>
+<th>Tanggal</th>
+<th>Status</th>
+
+</tr>
+
+
+
+{% for data in booking_data %}
+
+<tr>
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+<td>
+{{ data.kendaraan.nomor_polisi }}
+</td>
+
+
+<td>
+{{ data.tanggal_booking }}
+</td>
+
+
+<td>
+{{ data.status }}
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+<tr>
+
+<td colspan="4" class="text-center">
+
+Belum ada data
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- LAPORAN SERVIS -->
+
+
+<div class="card shadow mb-4">
+
+
+<div class="card-header bg-success text-white">
+
+<h5>
+Laporan Work Order
+</h5>
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th>No</th>
+<th>Kendaraan</th>
+<th>Mekanik</th>
+<th>Status</th>
+
+</tr>
+
+
+
+{% for data in servis_data %}
+
+
+<tr>
+
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+<td>
+{{ data.booking.kendaraan.nomor_polisi }}
+</td>
+
+
+<td>
+{{ data.mekanik.nama }}
+</td>
+
+
+<td>
+{{ data.status }}
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="4" class="text-center">
+
+Belum ada data
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- LAPORAN PEMBAYARAN -->
+
+
+<div class="card shadow mb-4">
+
+
+<div class="card-header bg-warning">
+<a href="{% url 'dashboard:cetak_pdf' %}"
+class="btn btn-light btn-sm float-end">
+
+Download PDF
+
+</a>
+
+<h5>
+Laporan Pembayaran
+</h5>
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th>No</th>
+<th>Kendaraan</th>
+<th>Total Bayar</th>
+<th>Metode</th>
+
+</tr>
+
+
+
+{% for data in pembayaran_data %}
+
+
+<tr>
+
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+<td>
+{{ data.workorder.booking.kendaraan.nomor_polisi }}
+</td>
+
+
+<td>
+Rp {{ data.total_bayar }}
+</td>
+
+
+<td>
+{{ data.metode }}
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="4" class="text-center">
+
+Belum ada data
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

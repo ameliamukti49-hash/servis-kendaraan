@@ -5,7 +5,7 @@
 <div class="container mt-4">
 
     <h2 class="mb-4">
-        Dashboard Mekanik
+        Dashboard Service Advisor
     </h2>
 
     <div class="row">
@@ -13,8 +13,8 @@
         <div class="col-md-4 mb-3">
             <div class="card text-bg-primary shadow">
                 <div class="card-body">
-                    <h6>Total Work Order</h6>
-                    <h2>{{ total_workorder }}</h2>
+                    <h6>Booking Hari Ini</h6>
+                    <h2>{{ booking_hari_ini }}</h2>
                 </div>
             </div>
         </div>
@@ -22,8 +22,8 @@
         <div class="col-md-4 mb-3">
             <div class="card text-bg-warning shadow">
                 <div class="card-body">
-                    <h6>Work Order Diproses</h6>
-                    <h2>{{ workorder_proses }}</h2>
+                    <h6>Booking Menunggu</h6>
+                    <h2>{{ booking_menunggu }}</h2>
                 </div>
             </div>
         </div>
@@ -31,8 +31,8 @@
         <div class="col-md-4 mb-3">
             <div class="card text-bg-success shadow">
                 <div class="card-body">
-                    <h6>Work Order Selesai</h6>
-                    <h2>{{ workorder_selesai }}</h2>
+                    <h6>Booking Diproses</h6>
+                    <h2>{{ booking_diproses }}</h2>
                 </div>
             </div>
         </div>
@@ -41,20 +41,20 @@
 
     <div class="card shadow mt-4">
 
-        <div class="card-header bg-success text-white">
-            Daftar Work Order
+        <div class="card-header bg-primary text-white">
+            Daftar Booking
         </div>
 
         <div class="card-body">
 
-            <table class="table table-striped table-hover">
+            <table class="table table-bordered table-hover">
 
                 <thead>
 
                     <tr>
                         <th>No</th>
-                        <th>No Work Order</th>
-                        <th>Mekanik</th>
+                        <th>Pelanggan</th>
+                        <th>Kendaraan</th>
                         <th>Status</th>
                     </tr>
 
@@ -62,14 +62,17 @@
 
                 <tbody>
 
-                    {% for wo in daftar_workorder %}
+                    {% for booking in daftar_booking %}
 
                     <tr>
 
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ wo.id }}</td>
-                        <td>{{ wo.mekanik }}</td>
-                        <td>{{ wo.status }}</td>
+
+                        <td>{{ booking.pelanggan }}</td>
+
+                        <td>{{ booking.kendaraan }}</td>
+
+                        <td>{{ booking.status }}</td>
 
                     </tr>
 
@@ -78,7 +81,7 @@
                     <tr>
 
                         <td colspan="4" class="text-center">
-                            Belum ada Work Order.
+                            Tidak ada data booking.
                         </td>
 
                     </tr>

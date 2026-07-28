@@ -1,0 +1,154 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-primary text-white">
+
+
+<a href="{% url 'dashboard:user_create' %}"
+class="btn btn-light btn-sm float-end">
+
++ Tambah User
+
+</a>
+
+
+<h5 class="mb-0">
+
+Manajemen User
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<table class="table table-bordered table-hover">
+
+
+<thead>
+
+<tr>
+
+<th>No</th>
+<th>Username</th>
+<th>Email</th>
+<th>Role</th>
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for user in users %}
+
+
+<tr>
+
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+<td>
+{{ user.username }}
+</td>
+
+
+<td>
+{{ user.email }}
+</td>
+
+
+<td>
+
+<span class="badge bg-info">
+
+{{ user.role }}
+
+</span>
+
+</td>
+
+
+
+<td>
+
+
+<a href="{% url 'dashboard:user_edit' user.id %}"
+class="btn btn-warning btn-sm">
+
+Edit
+
+</a>
+
+
+
+<a href="{% url 'dashboard:user_delete' user.id %}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Hapus user ini?')">
+
+Hapus
+
+</a>
+
+
+
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+Belum ada user
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

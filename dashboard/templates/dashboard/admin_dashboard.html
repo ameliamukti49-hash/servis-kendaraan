@@ -1,17 +1,353 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard Admin</title>
-</head>
-<body>
+{% extends 'dashboard/base_dashboard.html' %}
 
-<h1>Dashboard Admin</h1>
+{% block content %}
 
-<p>Selamat datang {{ request.user.first_name }}</p>
+<div class="container-fluid">
 
-<a href="{% url 'logout' %}">
-    Logout
-</a>
 
-</body>
-</html>
+    <!-- STATISTIK -->
+    <div class="row g-4 mb-4">
+
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <i class="fa-solid fa-users fa-2x text-primary mb-3"></i>
+
+                    <h6>Pelanggan</h6>
+
+                    <h3>{{ total_pelanggan }}</h3>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <i class="fa-solid fa-car fa-2x text-success mb-3"></i>
+
+                    <h6>Kendaraan</h6>
+
+                    <h3>{{ total_kendaraan }}</h3>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <i class="fa-solid fa-calendar-check fa-2x text-warning mb-3"></i>
+
+                    <h6>Booking</h6>
+
+                    <h3>{{ total_booking }}</h3>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <i class="fa-solid fa-screwdriver-wrench fa-2x text-danger mb-3"></i>
+
+                    <h6>Work Order</h6>
+
+                    <h3>{{ total_workorder }}</h3>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <i class="fa-solid fa-money-bill fa-2x text-success mb-3"></i>
+
+                    <h6>Pembayaran</h6>
+
+                    <h3>{{ total_pembayaran }}</h3>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card shadow border-0 text-center bg-primary text-white">
+
+                <div class="card-body">
+
+
+                    <i class="fa-solid fa-wallet fa-2x mb-3"></i>
+
+
+                    <h6>Pendapatan</h6>
+
+
+                    <h5>
+                        Rp {{ total_pendapatan }}
+                    </h5>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <!-- BOOKING TERBARU -->
+
+    <div class="card shadow border-0 mb-4">
+
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="mb-0">
+                Booking Terbaru
+            </h5>
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <table class="table table-bordered table-hover">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+                        <th>Pelanggan</th>
+                        <th>Kendaraan</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% for booking in booking_terbaru %}
+
+
+                    <tr>
+
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+
+
+                        <td>
+                            {{ booking.kendaraan.pemilik.username }}
+                        </td>
+
+
+                        <td>
+                            {{ booking.kendaraan.nomor_polisi }}
+                        </td>
+
+
+                        <td>
+                            {{ booking.tanggal_booking }}
+                        </td>
+
+
+                        <td>
+
+                            {% if booking.status == "selesai" %}
+
+                            <span class="badge bg-success">
+                                Selesai
+                            </span>
+
+                            {% elif booking.status == "diproses" %}
+
+                            <span class="badge bg-warning">
+                                Diproses
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-secondary">
+                                {{ booking.status }}
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                    </tr>
+
+
+                {% empty %}
+
+
+                    <tr>
+
+                        <td colspan="5" class="text-center">
+
+                            Belum ada booking
+
+                        </td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <!-- WORK ORDER -->
+
+    <div class="card shadow border-0">
+
+
+        <div class="card-header bg-success text-white">
+
+            <h5 class="mb-0">
+                Work Order Terbaru
+            </h5>
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <table class="table table-bordered table-hover">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+                        <th>Mekanik</th>
+                        <th>Kendaraan</th>
+                        <th>Status</th>
+
+                    </tr>
+
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% for wo in workorder_terbaru %}
+
+
+                    <tr>
+
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+
+
+                        <td>
+                            {{ wo.mekanik.nama }}
+                        </td>
+
+
+                        <td>
+                            {{ wo.booking.kendaraan.nomor_polisi }}
+                        </td>
+
+
+                        <td>
+
+                            {{ wo.status }}
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                {% empty %}
+
+
+                    <tr>
+
+                        <td colspan="4" class="text-center">
+
+                            Belum ada Work Order
+
+                        </td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

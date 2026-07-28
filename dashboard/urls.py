@@ -1,18 +1,102 @@
-# dashboard/urls.py
 from django.urls import path
-from .views import DashboardRoutingView, user_list_view, user_create_view, user_delete_view[cite: 1]
+from . import views
 
-app_name = 'dashboard'
+app_name = "dashboard"
+
 
 urlpatterns = [
-    # Gateway tunggal untuk mendistribusikan view secara dinamis berdasarkan role user[cite: 1]
-    path('', DashboardRoutingView.as_view(), name='index'),[cite: 1]
+
+    # ==========================
+    # DASHBOARD UTAMA
+    # ==========================
+
+    path(
+        "",
+        views.dashboard,
+        name="dashboard"
+    ),
+
+
+    # ==========================
+    # DASHBOARD ROLE
+    # ==========================
+
+    path(
+        "admin/",
+        views.admin_dashboard,
+        name="admin_dashboard"
+    ),
+
+    path(
+        "service/",
+        views.service_dashboard,
+        name="service_dashboard"
+    ),
+
+    path(
+        "mekanik/",
+        views.mekanik_dashboard,
+        name="mekanik_dashboard"
+    ),
+
+    path(
+        "kasir/",
+        views.kasir_dashboard,
+        name="kasir_dashboard"
+    ),
+
+    path(
+        "pelanggan/",
+        views.pelanggan_dashboard,
+        name="pelanggan_dashboard"
+    ),
+
+
+
+    # ==========================
+    # MANAJEMEN USER ADMIN
+    # ==========================
+
+    path(
+        "users/",
+        views.user_list,
+        name="user_list"
+    ),
+
+    path(
+        "users/delete/<int:id>/",
+        views.user_delete,
+        name="user_delete"
+    ),
     
-    # Rute Baru: Manajemen User Modul Terintegrasi
-    path('users/', user_list_view, name='user_list'),
-    path('users/create/', user_create_view, name='user_create'),
-    path('users/delete/<int:user_id>/', user_delete_view, name='user_delete'),
-    path('grafik/', views.grafik_view, name='grafik_statistik'),
-    path('laporan/', views.laporan_view, name='laporan_terpadu'),
-    path('invoice/<str:invoice_id>/pdf/', views.export_invoice_pdf, name='export_invoice_pdf'),
+    path(
+        "users/add/",
+        views.user_create,
+        name="user_create"
+    ),
+    
+    path(
+        "users/edit/<int:id>/",
+        views.user_edit,
+        name="user_edit"
+    ),
+    
+    path(
+        "laporan/",
+        views.laporan,
+        name="laporan"
+    ),
+    
+    path(
+        "grafik/",
+        views.grafik,
+        name="grafik"
+    ),
+    
+    path(
+        "laporan/pdf/",
+        views.cetak_pdf,
+        name="cetak_pdf"
+    ),
+
 ]

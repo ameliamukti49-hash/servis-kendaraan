@@ -8,7 +8,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
 
     # Dashboard
-    path('', include('dashboard.urls')),
+    path('dashboard/', include('dashboard.urls')),
 
     # Booking & Kendaraan
     path('', include('booking.urls')),

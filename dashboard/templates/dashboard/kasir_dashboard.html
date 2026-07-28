@@ -1,17 +1,89 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard Kasir</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h1>Dashboard Kasir</h1>
+{% block content %}
 
-<p>Selamat datang {{ request.user.first_name }}</p>
+<div class="container mt-4">
 
-<a href="{% url 'logout' %}">
-    Logout
-</a>
+    <h2 class="mb-4">
+        Dashboard Kasir
+    </h2>
 
-</body>
-</html>
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
+            <div class="card text-bg-primary shadow">
+                <div class="card-body">
+                    <h6>Total Transaksi</h6>
+                    <h2>{{ total_transaksi }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card text-bg-success shadow">
+                <div class="card-body">
+                    <h6>Total Pendapatan</h6>
+                    <h2>Rp {{ total_pendapatan }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow mt-4">
+
+        <div class="card-header bg-primary text-white">
+            Riwayat Pembayaran
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover">
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>ID Pembayaran</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for bayar in pembayaran_terbaru %}
+
+                    <tr>
+
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ bayar.id }}</td>
+                        <td>Rp {{ bayar.total }}</td>
+                        <td>{{ bayar.status }}</td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="4" class="text-center">
+                            Belum ada data pembayaran.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

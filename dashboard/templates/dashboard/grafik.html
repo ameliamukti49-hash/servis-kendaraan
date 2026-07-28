@@ -1,0 +1,115 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="card shadow mb-4">
+
+
+<div class="card-header bg-primary text-white">
+
+<h5>
+Grafik Statistik
+</h5>
+
+</div>
+
+
+<div class="card-body">
+
+
+<canvas id="bookingChart"></canvas>
+
+
+<hr>
+
+
+<canvas id="paymentChart"></canvas>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+
+const bookingChart =
+document.getElementById('bookingChart');
+
+
+new Chart(
+bookingChart,
+{
+
+type:'pie',
+
+data:{
+
+labels: {{ label_booking|safe }},
+
+datasets:[{
+
+label:'Booking',
+
+data: {{ data_booking|safe }}
+
+}]
+
+}
+
+}
+
+);
+
+
+
+
+
+const paymentChart =
+document.getElementById('paymentChart');
+
+
+new Chart(
+paymentChart,
+{
+
+type:'bar',
+
+data:{
+
+labels: {{ label_pembayaran|safe }},
+
+datasets:[{
+
+label:'Pembayaran',
+
+data: {{ data_pembayaran|safe }}
+
+}]
+
+}
+
+}
+
+);
+
+
+</script>
+
+
+{% endblock %}
